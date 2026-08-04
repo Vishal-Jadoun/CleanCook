@@ -1,0 +1,15 @@
+/* Global styles — keep minimal, use variables.css for design tokens */
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+ul {
+  list-style: none;
+}
