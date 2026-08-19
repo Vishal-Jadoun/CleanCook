@@ -1,1 +1,81 @@
 /* Design coming soon */
+.navbar {
+    background-color: #f7f4fa;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 15px 0px;
+    position: sticky;
+    top: 0px;
+}
+
+.navbarContainer {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    padding: 0px 40px;
+    margin: 0px auto;
+    align-items: center;
+}
+
+.navbarLogo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.logoIcon img {
+    height: 40px;
+    width: auto;
+}
+
+.logoText {
+    font-size: 25px;
+    color: #9c27b0;
+    font-weight: 700;
+}
+
+.navbarLinks {
+    display: flex;
+    gap: 30px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.navItem {
+    color: #171a17;
+    font-size: 15px;
+    transition: 0.5s ease-in-out;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.navItem:hover {
+    color: #9c27b0;
+}
+
+.navItem.active {
+    color: #9c27b0;
+    font-weight: 600;
+    position: relative;
+}
+
+.navItem.active:hover {
+    content: "• ";
+    color: #9c27b0;
+}
+
+.loginBtn {
+    background-color: #4caf50;
+    color: #f7f4fa;
+    text-decoration: none;
+    padding: 10px 25px;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 40%;
+    transition: 0.5s;
+}
+
+.loginBtn:hover {
+    background-color: #9c27b0;
+    transform: translateY(-2px);
+}
