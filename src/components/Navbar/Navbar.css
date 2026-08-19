@@ -1,7 +1,7 @@
 /* Design coming soon */
 .navbar {
-    background-color: #f7f4fa;
-    border-bottom: 1px solid #e0e0e0;
+    background-color: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
     padding: 15px 0px;
     position: sticky;
     top: 0px;
@@ -30,7 +30,7 @@
 
 .logoText {
     font-size: 25px;
-    color: #9c27b0;
+    color: var(--color-primary);
     font-weight: 700;
 }
 
@@ -42,40 +42,48 @@
 }
 
 .navItem {
-    color: #171a17;
+    color: var(--color-text);
     font-size: 15px;
     transition: 0.5s ease-in-out;
     text-decoration: none;
     font-weight: 500;
-}
-
-.navItem:hover {
-    color: #9c27b0;
-}
-
-.navItem.active {
-    color: #9c27b0;
-    font-weight: 600;
     position: relative;
 }
 
-.navItem.active:hover {
+.navItem:hover {
+    color: var(--color-primary);
+}
+
+/* .navItem.active {
+    color: var(--color-primary);
+    font-weight: 600;
+    position: relative;
+} */
+
+/* .navItem.active::before {
     content: "• ";
-    color: #9c27b0;
+    color: var(--color-primary);
+} */
+
+.navItem:hover::before {
+    content: "• ";
+    color: var(--color-primary);
+    position: absolute;
+    left: -12px;
 }
 
 .loginBtn {
-    background-color: #4caf50;
-    color: #f7f4fa;
+    background-color: var(--color-primary);
+    color: var(--color-bg);
     text-decoration: none;
     padding: 10px 25px;
     font-size: 15px;
     font-weight: 500;
-    border-radius: 40%;
+    border-radius: 50px;
     transition: 0.5s;
 }
 
 .loginBtn:hover {
-    background-color: #9c27b0;
-    transform: translateY(-2px);
+    background-color: var(--color-secondary);
+    /* transform: translateY(-2px); */
 }
