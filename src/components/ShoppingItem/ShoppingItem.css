@@ -1,0 +1,84 @@
+.list-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 0;
+  border-bottom: 1px solid #f4f4f4;
+  background: transparent;
+}
+
+.row-item-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 25%;
+}
+
+.row-icon {
+  background: white;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.row-text h4 {
+  margin: 0 0 3px;
+  color: #111;
+  font-size: 0.95rem;
+}
+
+.row-text p {
+  margin: 0;
+  color: #a0a0a0;
+  font-size: 0.8rem;
+}
+
+.row-price-unit {
+  width: 25%;
+  color: #111;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.row-counter {
+  display: flex;
+  align-items: center;
+  background: #f4f6fa;
+  border-radius: 20px;
+  padding: 5px 10px;
+}
+
+.row-counter button {
+  background: none;
+  border: none;
+  color: #10b981; /* Green color like image */
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0 10px;
+}
+
+.row-counter span {
+  font-weight: bold;
+  min-width: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.row-total {
+  font-weight: bold;
+  color: #111;
+  width: 15%;
+  text-align: right;
+}
+
+.row-menu {
+  color: #a0a0a0;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding-left: 15px;
+}
