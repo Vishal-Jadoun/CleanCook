@@ -1,59 +1,55 @@
-import './Planner.css';
-import DayColumn from '../../components/DayColumn/DayColumn.jsx';
-import PlannerSlot from '../../components/PlannerSlot/PlannerSlot.jsx';
-function Planner() {
-  return (
-    <section id="planner-page" className="planner-page">
-      <h1>Meal Planner</h1>
 
-<div className="planner">
-        
-        {/* MONDAY */}
-        <DayColumn dayName="monday">
-          <PlannerSlot type="Breakfast" meal="Oats & Berries" />
-          <PlannerSlot type="Lunch" meal="Butter Chicken" />
-          <PlannerSlot type="Dinner" meal="+ Add meal" />
-        </DayColumn>
-        {/* TUESDAY */}
-        <DayColumn dayName="tuesday">
-          <PlannerSlot type="Breakfast" meal="Scrambled Eggs" />
-          <PlannerSlot type="Lunch" meal="Butter Chicken" />
-          <PlannerSlot type="Dinner" meal="+ Add meal" />
-        </DayColumn>
-        {/* WEDNESDAY */}
-        <DayColumn dayName="wednesday">
-          <PlannerSlot type="Breakfast" meal="Toast & Jam" />
-          <PlannerSlot type="Lunch" meal="Dal Rice" />
-          <PlannerSlot type="Dinner" meal="+ Add meal" />
-        </DayColumn>
-        {/* THURSDAY */}
-        <DayColumn dayName="thursday">
-          <PlannerSlot type="Breakfast" meal="+ Add meal" />
-          <PlannerSlot type="Lunch" meal="+ Add meal" />
-          <PlannerSlot type="Dinner" meal="+ Add meal" />
-        </DayColumn>
-        {/* FRIDAY */}
-        <DayColumn dayName="friday">
-          <PlannerSlot type="Breakfast" meal="+ Add meal" />
-          <PlannerSlot type="Lunch" meal="Pasta Carbonara" />
-          <PlannerSlot type="Dinner" meal="Tomato Soup" />
-        </DayColumn>
-        {/* SATURDAY */}
-        <DayColumn dayName="saturday">
-          <PlannerSlot type="Breakfast" meal="Paneer Paratha" />
-          <PlannerSlot type="Lunch" meal="+ Add meal" />
-          <PlannerSlot type="Dinner" meal="+ Add meal" />
-        </DayColumn>
-        {/* SUNDAY */}
-        <DayColumn dayName="sunday">
-          <PlannerSlot type="Breakfast" meal="+ Add meal" />
-          <PlannerSlot type="Lunch" meal="+ Add meal" />
-          <PlannerSlot type="Dinner" meal="+ Add meal" />
-        </DayColumn>
+
+import React, { useState } from 'react';
+import DayColumn from '../../components/DayColumn/DayColumn';
+import PlannerSlot from '../../components/PlannerSlot/PlannerSlot';
+import './Planner.css';
+
+const MOCK_DATA = {
+  Monday: {
+    totalNutrients: { calories: 2340, protein: 120, fat: 60, carbs: 285 },
+    meals: {
+      breakfast: { name: "Avocado Toast" },
+      lunch: { name: "Chicken Salad" },
+      dinner: { name: "Spaghetti Bolognese" }
+    }
+  },
+  Tuesday: { totalNutrients: { calories: 2100, protein: 110, fat: 55, carbs: 250 }, meals: {} },
+  Wednesday: { totalNutrients: { calories: 2200, protein: 115, fat: 58, carbs: 260 }, meals: {} },
+  Thursday: { totalNutrients: { calories: 2400, protein: 125, fat: 65, carbs: 290 }, meals: {} },
+  Friday: { totalNutrients: { calories: 2350, protein: 122, fat: 62, carbs: 280 }, meals: {} },
+  Saturday: { totalNutrients: { calories: 2500, protein: 130, fat: 70, carbs: 300 }, meals: {} },
+  Sunday: { totalNutrients: { calories: 2450, protein: 128, fat: 68, carbs: 295 }, meals: {} },
+};
+
+const Planner = () => {
+  const [selectedDay, setSelectedDay] = useState(null);
+  const daysOfWeek = Object.keys(MOCK_DATA);
+
+  return (
+    <div className="planner-container">
+      <h1 className="planner-title">Weekly Planner</h1>
+      
+      <div className="days-row">
+        {daysOfWeek.map(day => (
+          <DayColumn 
+            key={day} 
+            dayName={day} 
+            onClick={() => setSelectedDay(day)} 
+            isActive={selectedDay === day}
+          />
+        ))}
       </div>
 
-    </section>
+      {selectedDay && (
+        <PlannerSlot 
+          dayName={selectedDay} 
+          dayData={MOCK_DATA[selectedDay]} 
+          onClose={() => setSelectedDay(null)} 
+        />
+      )}
+    </div>
   );
-}
+};
 
 export default Planner;

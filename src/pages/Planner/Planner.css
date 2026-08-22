@@ -1,0 +1,23 @@
+.planner-container {
+  max-width: 95%; /* THIS MAKES IT COVER THE MAXIMUM PAGE WIDTH */
+  margin: 0 auto;
+  padding: 40px 20px;
+  background-color: #f4f6fa;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+}
+
+.planner-title {
+  text-align: center;
+  margin-bottom: 40px;
+  color: #111;
+  font-size: 2.5rem; /* Made the title a bit bigger too */
+}
+
+.days-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px; /* More space between the day blocks */
+  overflow-x: auto;
+  padding-bottom: 20px;
+}
