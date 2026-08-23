@@ -4,6 +4,12 @@ import cal from "../../assets/calendar.png";
 import chef from "../../assets/chef.png";
 import chart from "../../assets/chart.png";
 import target from "../../assets/target.png";
+import bbowl from "../../assets/bbowl.png";
+import cbowl from "../../assets/cbowl.png";
+import xbowl from "../../assets/xbowl.png";
+import ybowl from "../../assets/ybowl.png";
+import zbowl from "../../assets/zbowl.png";
+
 
 function Home() {
   return (
@@ -52,6 +58,47 @@ function Home() {
               </div>
             </div>
           </div>
+
+          <div className='recipeSection'>
+            <h2>Daily Recipe Inspiration</h2>
+
+            <div className='recipeContainer'>
+
+              <div className='recipeCard'>
+                <div className='recipeImg'>
+                  <img src={heroImg} alt="Grilled Chicken" />
+                </div>
+                <div className='recipeInfo'>
+                  <h4>Grilled Chiecken</h4>
+                  <p>Fresh Greens, Avacodo, Chicken</p>
+                  <button className='addPlannerBtn'>Add to Planner</button>
+                </div>
+              </div>
+
+              <div className='recipeCard'>
+                <div className='recipeImg'>
+                  <img src={bbowl} alt="Quinoa Buddha Bowl" />
+                </div>
+                <div className='recipeInfo'>
+                  <h4>Quinoa Buddha Bowl</h4>
+                  <p>Packed with flavor and nutrients</p>
+                  <button className='addPlannerBtn'>Add to Planner</button>
+                </div>
+              </div>
+
+                <div className='recipeCard'>
+                <div className='recipeImg'>
+                  <img src={cbowl} alt="Sweet Potato Hash" />
+                </div>
+                <div className='recipeInfo'>
+                  <h4>Sweet Potato Hash</h4>
+                  <p>Packed with flavor and nutrients</p>
+                  <button className='addPlannerBtn'>Add to Planner</button>
+                </div>
+              </div>
+
+          </div>
+        </div>
 
 
     </section>
