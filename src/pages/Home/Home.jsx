@@ -81,7 +81,17 @@ function Home() {
                 </div>
                 <div className='recipeInfo'>
                   <h4>Quinoa Buddha Bowl</h4>
-                  <p>Packed with flavor and nutrients</p>
+                  <p>Quinoa, Chickpeas, Fresh Veggies</p>
+                  <button className='addPlannerBtn'>Add to Planner</button>
+                </div>
+              </div>
+              <div className='recipeCard'>
+                <div className='recipeImg'>
+                  <img src={xbowl} alt="Quinoa Buddha Bowl" />
+                </div>
+                <div className='recipeInfo'>
+                  <h4>Tuna Bowl</h4>
+                  <p>Fresh Tuna, Mango, Avocado</p>
                   <button className='addPlannerBtn'>Add to Planner</button>
                 </div>
               </div>
@@ -92,7 +102,7 @@ function Home() {
                 </div>
                 <div className='recipeInfo'>
                   <h4>Sweet Potato Hash</h4>
-                  <p>Packed with flavor and nutrients</p>
+                  <p>Roasted Sweet Potato, Veggies, Herbs</p>
                   <button className='addPlannerBtn'>Add to Planner</button>
                 </div>
               </div>
@@ -100,6 +110,56 @@ function Home() {
           </div>
         </div>
 
+
+        <div className='dbSection'>
+          <h2 className='sectionTitle'>Your Day at a Glance</h2>
+          <div className='dbConatiner'>
+
+            <div className='dbMealCard'>
+              <div className='header'>
+
+                <div className='dateInfo'>
+                  <span className='dayTitle'>Today</span>
+                  <span className='dayText'>Monday , Oct 17</span>
+                </div>
+
+                <div className='dateNav'>
+                  <span className='arrow'>&lt;</span>
+                  <span className='day'>Monday</span>
+                  <span className='arrow'>&gt;</span>
+                </div>
+              </div>
+
+              <div className='mealList'>
+                <div className='mealItem'>
+                  <div className='mealCircle'>
+                    <img src={ybowl} alt="Breakfast" />
+                  </div>
+                  <h5>BreakFast</h5>
+                  <p>Grilled Chicken Mediterranean Bowl</p>
+                </div>
+                <div className='mealItem'>
+                  <div className='mealCircle'>
+                    <img src={zbowl} alt="Lunch" />
+                  </div>
+                  <h5>Lunch</h5>
+                  <p>Tuna Mango Poke Bowl</p>
+                </div>
+                <div className='mealItem'>
+                  <div className='mealCircle'>
+                    <img src={xbowl} alt="Dinner" />
+                  </div>
+                  <h5>Dinner</h5>
+                  <p>Mediterranean Falafel Bowl</p>
+                </div>
+
+              </div>
+
+
+            </div>
+          </div>
+
+        </div>
 
     </section>
   );
