@@ -82,3 +82,64 @@
     border-radius: 70%;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
+
+.featureBarWrap {
+    background-color: #ded3eb;
+    padding: 60px 0px;
+    /* margin-top: 40px; */
+}
+
+.featureContainer {
+    display: flex;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0px 40px;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.featureCard {
+    background-color: var(--color-bg);
+    padding: 30px 20px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0px 15px 40px rgba(78, 75, 75, 0.2);
+
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    transition: 0.5s ease;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.featureCard:hover{
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.featureIcon{
+    background-color: var(--color-bg);
+    width: 75px;
+    transition: 0.5s ease;
+}
+
+.featureCard:hover .featureIcon {
+    transform: scale(1.1);
+}
+
+.featureCard h4 {
+    font-size: 20px;
+    color: rgb(90, 82, 82);
+
+}
+
+.featureCard p {
+    font-size: 15px;
+    color: grey;
+    line-height: 1.5;
+}
+
+
+
