@@ -1,39 +1,39 @@
-import React from 'react';
-import './ShoppingItem.css';
+import "./ShoppingItem.css";
 
-const ShoppingItem = ({ item, onUpdateQty }) => {
+function ShoppingItem({ item, onToggle, onRemove }) {
   return (
-    <div className="list-row">
-      
-      {/* Icon and Name block */}
-      <div className="row-item-info">
-        <div className="row-icon">{item.image}</div>
-        <div className="row-text">
-          <h4>{item.name}</h4>
-          <p>{item.store}</p>
-        </div>
-      </div>
+    <li
+      className={`shopping-item${item.checked ? " shopping-item--checked" : ""}`}
+      id={`shopping-item-${item.id}`}
+    >
+      <label className="shopping-item-label" htmlFor={`checkbox-${item.id}`}>
+        <input
+          type="checkbox"
+          id={`checkbox-${item.id}`}
+          className="shopping-checkbox"
+          checked={item.checked}
+          onChange={() => onToggle(item.id)}
+        />
+        <span className={`shopping-item-name${item.checked ? " item-crossed" : ""}`}>
+          {item.name}
+        </span>
+      </label>
 
-      {/* Price per unit */}
-      <div className="row-price-unit">
-        ${item.price.toFixed(2)} per Unit
-      </div>
+      <span className="shopping-dots" aria-hidden="true" />
 
-      {/* The pill counter */}
-      <div className="row-counter">
-        <button onClick={() => onUpdateQty(-1)}>-</button>
-        <span>{item.qty}</span>
-        <button onClick={() => onUpdateQty(1)}>+</button>
-      </div>
+      <span className="shopping-item-quantity">{item.quantity}</span>
 
-      {/* Total Price and menu */}
-      <div className="row-total">
-        ${(item.price * item.qty).toFixed(2)}
-      </div>
-      <div className="row-menu">⋮</div>
-
-    </div>
+      <button
+        className="shopping-remove-btn"
+        id={`remove-item-${item.id}`}
+        onClick={() => onRemove(item.id)}
+        title="Remove item"
+        aria-label={`Remove ${item.name}`}
+      >
+        ✕
+      </button>
+    </li>
   );
-};
+}
 
 export default ShoppingItem;
