@@ -43,7 +43,6 @@
 
 .navItem {
     color: var(--color-text);
-    color: #171a17;
     font-size: 15px;
     transition: 0.5s ease-in-out;
     text-decoration: none;
@@ -62,7 +61,7 @@
     left: -12px;
 }
 
-.loginBtn {
+/* .loginBtn {
     background-color: var(--color-primary);
     color: var(--color-bg);
     text-decoration: none;
@@ -74,5 +73,31 @@
 }
 
 .loginBtn:hover {
+    background-color: var(--color-secondary);
+} */
+ .profileSvg{
+    width: 20px;
+    height: 20px;
+    filter: invert(1) brightness(2);
+    transform: translateX(-1px);
+ }
+
+.profileBtn {
+    background-color: var(--color-primary);
+    color: var(--color-text);
+    text-decoration: none;
+    font-size: 20px;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--color-border);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    transition: 0.5s ease;
+}
+
+.profileBtn:hover{
     background-color: var(--color-secondary);
 }

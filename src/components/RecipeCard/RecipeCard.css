@@ -1,0 +1,16 @@
+.recipe-card {
+  background-color: var(--color-bg-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+.recipe-img-placeholder {
+  height: 150px;
+  background-color: #eee;
+}
+
+.recipe-card h4, .recipe-card p {
+  padding: 10px 15px;
+}
