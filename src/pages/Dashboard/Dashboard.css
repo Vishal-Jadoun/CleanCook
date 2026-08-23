@@ -1,0 +1,514 @@
+/*DASHBOARD*/
+.dashboard {
+  width: 100%;
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 45px 40px 60px;
+  color: #19182d;
+}
+
+
+/*HEADER*/
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+}
+
+.dashboard-header h1 {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 500;
+  color: #19182d;
+}
+
+.dashboard-header h1 span {
+  color: #7d3fc5;
+  font-weight: 700;
+}
+
+.dashboard-header p {
+  margin-top: 8px;
+  color: #777387;
+  font-size: 15px;
+}
+
+.dashboard-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #777387;
+}
+
+.profile-circle {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #eee3fb;
+  color: #7d3fc5;
+  font-weight: 600;
+}
+
+
+/*SUMMARY CARDS*/
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-bottom: 25px;
+}
+
+.summary-card {
+  min-height: 190px;
+  padding: 25px;
+  display: flex;
+  gap: 18px;
+  background: #ffffff;
+  border: 1px solid #eee9f5;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(80, 50, 120, 0.04);
+  transition: transform 0.2s ease,
+              box-shadow 0.2s ease;
+}
+
+.summary-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 20px rgba(80, 50, 120, 0.08);
+}
+
+
+/* Icons */
+.summary-icon {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 23px;
+  background: #f1e7fc;
+}
+
+.calories-card .summary-icon {
+  background: #fff0ed;
+}
+
+.bmi-card .summary-icon {
+  background: #eaf7ea;
+}
+
+.water-card .summary-icon {
+  background: #eaf3ff;
+}
+
+
+/* Content */
+.summary-content {
+  flex: 1;
+}
+
+.summary-content h3 {
+  margin: 2px 0 8px;
+  color: #5e5a6d;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.summary-number {
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.summary-content p {
+  margin-top: 3px;
+  color: #858191;
+  font-size: 14px;
+}
+
+.bmi-normal {
+  color: #43a94c !important;
+}
+
+
+/* Progress */
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  margin-top: 20px;
+  background: #eeeef3;
+  border-radius: 10px;
+}
+
+.progress {
+  height: 100%;
+  border-radius: 10px;
+}
+
+.calories-progress {
+  width: 72%;
+  background: #8245d2;
+}
+
+.bmi-progress {
+  width: 75%;
+  background: #5bb95c;
+}
+
+.progress-text {
+  display: block;
+  margin-top: 5px;
+  text-align: right;
+  font-size: 12px;
+  color: #777387;
+}
+
+
+/* Water */
+.water-icons {
+  display: flex;
+  gap: 5px;
+  margin: 17px 0 10px;
+  font-size: 19px;
+}
+
+.empty-water {
+  opacity: 0.25;
+}
+
+
+/*COMMON SECTION*/
+.nutrition-section,
+.favorites-section,
+.activity-section {
+  background: #ffffff;
+  border: 1px solid #eee9f5;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(80, 50, 120, 0.04);
+}
+
+.nutrition-section {
+  padding: 28px;
+  margin-bottom: 25px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.section-title h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.section-title a {
+  color: #7d3fc5;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.section-title a:hover {
+  text-decoration: underline;
+}
+
+
+/*NUTRITION*/
+.nutrition-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.nutrition-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 25px;
+  border-right: 1px solid #eeeeee;
+}
+
+.nutrition-item:first-child {
+  padding-left: 0;
+}
+
+.nutrition-item:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+
+
+/* Nutrition Icons */
+.nutrition-icon {
+  width: 45px;
+  height: 45px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 19px;
+}
+
+.protein-icon {
+  background: #eee3fc;
+}
+
+.carbs-icon {
+  background: #fff1dd;
+}
+
+.fat-icon {
+  background: #ffe8ed;
+}
+
+
+/* Nutrition Info */
+.nutrition-details {
+  flex: 1;
+}
+
+.nutrition-details h3 {
+  margin-bottom: 5px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.nutrition-details p {
+  color: #777387;
+  font-size: 14px;
+}
+
+.nutrition-details strong {
+  color: #28263a;
+}
+
+
+/* Nutrition Progress */
+.nutrition-progress {
+  width: 100%;
+  height: 5px;
+  margin-top: 10px;
+  background: #eeeeF3;
+  border-radius: 10px;
+}
+
+.protein-bar,
+.carbs-bar,
+.fat-bar {
+  height: 100%;
+  border-radius: 10px;
+}
+
+.protein-bar {
+  width: 71%;
+  background: #8245d2;
+}
+
+.carbs-bar {
+  width: 72%;
+  background: #f39a24;
+}
+
+.fat-bar {
+  width: 69%;
+  background: #ed6179;
+}
+
+.nutrition-percent {
+  color: #777387;
+  font-size: 12px;
+}
+
+
+/*BOTTOM SECTION*/
+.bottom-section {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 25px;
+}
+
+
+/*FAVORITES*/
+.favorites-section {
+  padding: 28px;
+}
+
+.favorite-items {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.favorite-card {
+  overflow: hidden;
+  border: 1px solid #eee9f5;
+  border-radius: 10px;
+  background: #ffffff;
+  transition: transform 0.2s ease;
+}
+
+.favorite-card:hover {
+  transform: translateY(-2px);
+}
+
+.food-placeholder {
+  height: 95px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f4effb;
+  font-size: 40px;
+}
+
+.favorite-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+}
+
+.favorite-info h3 {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.favorite-info span {
+  color: #8b45d5;
+  font-size: 19px;
+}
+
+
+/*ACTIVITY*/
+.activity-section {
+  padding: 28px;
+}
+
+.activity-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 0;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.activity-item:last-child {
+  border-bottom: none;
+}
+
+.activity-icon {
+  width: 37px;
+  height: 37px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.activity-icon.purple {
+  background: #eee3fc;
+  color: #7d3fc5;
+}
+
+.activity-icon.green {
+  background: #e7f7e9;
+  color: #3ca34b;
+}
+
+.activity-icon.blue {
+  background: #e7f1ff;
+  color: #347ce4;
+}
+
+.activity-content {
+  flex: 1;
+}
+
+.activity-content p {
+  margin-bottom: 4px;
+  color: #4f4c60;
+  font-size: 13px;
+}
+
+.activity-content span {
+  color: #9996a5;
+  font-size: 11px;
+}
+
+
+/*RESPONSIVE*/
+@media (max-width: 1000px) {
+
+  .dashboard {
+    padding: 35px 25px;
+  }
+
+  .summary-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .nutrition-container {
+    grid-template-columns: 1fr;
+  }
+
+  .nutrition-item {
+    padding: 18px 0;
+
+    border-right: none;
+    border-bottom: 1px solid #eeeeee;
+  }
+
+  .nutrition-item:last-child {
+    border-bottom: none;
+  }
+
+  .bottom-section {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+@media (max-width: 700px) {
+
+  .dashboard {
+    padding: 25px 15px;
+  }
+
+  .dashboard-header h1 {
+    font-size: 23px;
+  }
+
+  .summary-card {
+    padding: 20px;
+  }
+
+  .favorite-items {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+
+@media (max-width: 450px) {
+
+  .favorite-items {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-header {
+    align-items: flex-start;
+  }
+
+  .dashboard-profile {
+    display: none;
+  }
+
+}

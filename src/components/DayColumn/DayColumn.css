@@ -1,32 +1,77 @@
+/* ============================================
+   DAY COLUMN — day selector button
+   ============================================ */
+
 .day-column {
-  flex: 1; /* This tells every day card to stretch and fill the empty space equally */
-  min-width: 100px; /* Prevents them from getting too squished on small screens */
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 25px 10px; /* Made the buttons taller so they look proportional on a wide screen */
-  background: white;
-  border: none;
-  border-radius: 25px;
+  justify-content: center;
+  padding: 14px 20px;
+  min-width: 100px;
+  background: #ffffff;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-  transition: all 0.3s ease;
+  font-family: var(--font-main);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
 }
 
+/* Subtle purple left accent on hover */
+.day-column::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--color-primary);
+  transform: scaleY(0);
+  transition: transform var(--transition-normal);
+  border-radius: 0 2px 2px 0;
+}
+
+.day-column:hover {
+  border-color: var(--color-primary-light);
+  box-shadow: 0 4px 14px rgba(156, 39, 176, 0.15);
+  transform: translateY(-2px);
+  color: var(--color-primary);
+}
+
+.day-column:hover::before {
+  transform: scaleY(1);
+}
+
+/* Active / selected state */
 .day-column.active {
-  background: #333;
-  color: white;
-  transform: translateY(-8px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  border-color: var(--color-primary-dark);
+  color: #ffffff;
+  box-shadow: 0 6px 20px rgba(156, 39, 176, 0.4);
+  transform: translateY(-2px);
 }
 
-.day-abbr {
-  font-weight: bold;
-  font-size: 1.5rem; /* Larger text for wider cards */
+.day-column.active::before {
+  display: none;
 }
 
 .day-full {
-  font-size: 0.9rem;
-  opacity: 0.7;
-  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .day-column {
+    min-width: 72px;
+    padding: 10px 12px;
+    font-size: 13px;
+  }
 }

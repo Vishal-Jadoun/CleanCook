@@ -1,84 +1,129 @@
-.list-row {
+.shopping-item {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 15px 0;
-  border-bottom: 1px solid #f4f4f4;
+  min-height: 44px;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-family: var(--font-main);
+  border-bottom: 1px solid var(--color-border);
+  transition: background var(--transition-fast);
+}
+
+.shopping-item:last-child { border-bottom: none; }
+.shopping-item:hover { background: rgba(156, 39, 176, 0.03); }
+.shopping-item--checked { background: rgba(76, 175, 80, 0.04); }
+
+/* Label */
+.shopping-item-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  min-width: 0;
+}
+
+/* Custom Checkbox */
+.shopping-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  border: 2px solid var(--color-border);
+  border-radius: 4px;
   background: transparent;
+  cursor: pointer;
+  position: relative;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
 }
 
-.row-item-info {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  width: 25%;
+.shopping-checkbox:hover { border-color: var(--color-primary); }
+
+.shopping-checkbox:checked {
+  background: linear-gradient(135deg, var(--color-secondary), var(--color-secondary-dark));
+  border-color: var(--color-secondary);
 }
 
-.row-icon {
-  background: white;
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.5rem;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+.shopping-checkbox:checked::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 5px;
+  height: 9px;
+  border: 2px solid #fff;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
 }
 
-.row-text h4 {
-  margin: 0 0 3px;
-  color: #111;
-  font-size: 0.95rem;
+/* Name */
+.shopping-item-name {
+  color: var(--color-text);
+  font-size: 14px;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color var(--transition-fast);
 }
 
-.row-text p {
-  margin: 0;
-  color: #a0a0a0;
-  font-size: 0.8rem;
+.item-crossed {
+  text-decoration: line-through;
+  color: var(--color-text-light);
 }
 
-.row-price-unit {
-  width: 25%;
-  color: #111;
+/* Dot leader */
+.shopping-dots {
+  flex: 1;
+  margin: 0 12px;
+  height: 1px;
+  background: repeating-linear-gradient(
+    to right,
+    var(--color-border) 0,
+    var(--color-border) 3px,
+    transparent 3px,
+    transparent 8px
+  );
+}
+
+/* Quantity badge */
+.shopping-item-quantity {
+  font-size: 13px;
   font-weight: 500;
-  font-size: 0.9rem;
-}
-
-.row-counter {
-  display: flex;
-  align-items: center;
-  background: #f4f6fa;
-  border-radius: 20px;
-  padding: 5px 10px;
-}
-
-.row-counter button {
-  background: none;
-  border: none;
-  color: #10b981; /* Green color like image */
-  font-size: 1.1rem;
-  cursor: pointer;
-  padding: 0 10px;
-}
-
-.row-counter span {
-  font-weight: bold;
-  min-width: 20px;
+  color: var(--color-primary);
+  background: rgba(156, 39, 176, 0.08);
+  padding: 3px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+  min-width: 52px;
   text-align: center;
-  color: #333;
 }
 
-.row-total {
-  font-weight: bold;
-  color: #111;
-  width: 15%;
-  text-align: right;
+.shopping-item--checked .shopping-item-quantity {
+  color: var(--color-text-light);
+  background: rgba(0, 0, 0, 0.05);
 }
 
-.row-menu {
-  color: #a0a0a0;
-  font-size: 1.5rem;
+/* Remove button */
+.shopping-remove-btn {
+  border: none;
+  background: transparent;
+  color: transparent;
+  font-size: 12px;
   cursor: pointer;
-  padding-left: 15px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  margin-left: 8px;
+  transition: color var(--transition-fast), background var(--transition-fast);
+  line-height: 1;
+}
+
+.shopping-item:hover .shopping-remove-btn {
+  color: var(--color-text-light);
+}
+
+.shopping-remove-btn:hover {
+  color: #e53935 !important;
+  background: rgba(229, 57, 53, 0.1);
 }
