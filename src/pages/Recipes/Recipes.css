@@ -1,0 +1,21 @@
+.recipes-page {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0px 40px;
+}
+
+.recipePage {
+    text-align: center;
+}
+
+.recipePage h1 {
+    font-size: 45px;
+    color: black;
+    margin-bottom: 15px;
+    font-weight: 800;
+}
+
+.recipePage p {
+    font-size: 18px;
+    color: grey;
+}
