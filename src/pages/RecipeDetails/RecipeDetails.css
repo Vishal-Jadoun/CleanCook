@@ -1,0 +1,121 @@
+.recipeDetailsPage {
+    max-width: 1200px;
+    margin: 40px auto;
+}
+
+/* --- Header Section --- */
+.detailsHeader {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    margin-bottom: 60px;
+    background-color: var(--color-bg);
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--color-border);
+}
+
+.detailsImage {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.detailsImage img {
+    width: 100%;
+    max-width: 350px;
+    border-radius: 50%;
+    border: 8px solid var(--color-secondary); /* Cool teal ring! */
+}
+
+.detailsTitleBox {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Keeps the button on the left! */
+    gap: 20px;
+}
+
+.detailsTitleBox h1 {
+    font-size: 50px;
+    color: #2b2b2b;
+}
+
+.detailsTitleBox p {
+    font-size: 20px;
+    color: grey;
+    line-height: 1.5;
+}
+
+.recipeStats {
+    display: flex;
+    gap: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--color-secondary);
+}
+
+
+/* --- Bottom Content (2 columns) --- */
+.detailsContent {
+    display: flex;
+    gap: 60px;
+}
+
+/* Ingredients on the left */
+.ingredientsSection {
+    flex: 1;
+    background-color: #f7f4fa; /* Matches your light purple banner! */
+    padding: 40px;
+    border-radius: 20px;
+}
+
+.ingredientsSection h2 {
+    margin-bottom: 25px;
+    color: #2b2b2b;
+    font-size: 28px;
+}
+
+.ingredientsSection ul {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ingredientsSection li {
+    font-size: 18px;
+    color: #4a4a4a;
+    border-bottom: 1px solid #ded3eb;
+    padding-bottom: 15px;
+}
+
+/* Instructions on the right */
+.instructionsSection {
+    flex: 2;
+}
+
+.instructionsSection h2 {
+    margin-bottom: 25px;
+    color: #2b2b2b;
+    font-size: 28px;
+}
+
+.instructionsSection ol {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding-left: 20px;
+}
+
+.instructionsSection li {
+    font-size: 18px;
+    color: grey;
+    line-height: 1.8;
+}
+
+.instructionsSection strong {
+    color: #2b2b2b;
+    display: block;
+    margin-bottom: 5px;
+}
