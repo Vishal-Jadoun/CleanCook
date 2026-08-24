@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Profile.css';
 
 function Profile() {
-  // ================= STATE =================
+  //STATE
   // State to toggle between View mode and Edit mode
   const [isEditing, setIsEditing] = useState(false);
 
@@ -23,7 +23,7 @@ function Profile() {
   // Temporary state for editing so changes can be saved or cancelled
   const [formData, setFormData] = useState({ ...profileData });
 
-  // ================= HANDLERS =================
+  //HANDLERS
   // Handle input changes when in edit mode
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,7 +50,7 @@ function Profile() {
     <section id="profile-page" className="profile-page">
       <div className="profile-container">
 
-        {/* ================= 1. PROFILE HEADER CARD ================= */}
+        {/*PROFILE HEADER CARD*/}
         <div className="profile-header-card">
           <div className="profile-header-left">
             {/* Avatar Circle with Initial */}
@@ -102,8 +102,8 @@ function Profile() {
 
         {/* Form wrapper for editable fields */}
         <form onSubmit={handleSave}>
-          
-          {/* ================= 2. PERSONAL INFORMATION ================= */}
+
+          {/* PERSONAL INFORMATION*/}
           <div className="profile-section-card">
             <div className="section-header">
               <h2>👤 Personal Information</h2>
@@ -215,7 +215,7 @@ function Profile() {
             </div>
           </div>
 
-          {/* ================= 3. HEALTH & NUTRITION GOALS ================= */}
+          {/*HEALTH & NUTRITION GOALS*/}
           <div className="profile-section-card">
             <div className="section-header">
               <h2>🎯 Health & Nutrition Goals</h2>
@@ -275,7 +275,7 @@ function Profile() {
 
         </form>
 
-        {/* ================= 4. ACCOUNT SETTINGS ================= */}
+        {/*ACCOUNT SETTINGS*/}
         <div className="profile-section-card settings-card">
           <div className="section-header">
             <h2>⚙️ Account Settings</h2>
