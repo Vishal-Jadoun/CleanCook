@@ -1,4 +1,3 @@
-/* ── Item Row ── */
 .shopping-item {
   display: flex;
   align-items: center;
@@ -14,13 +13,11 @@
 .shopping-item:last-child { border-bottom: none; }
 .shopping-item:hover { background: rgba(156, 39, 176, 0.04); }
 
-/* ── Done row — styled differently ── */
 .shopping-item--done {
   background: rgba(76, 175, 80, 0.05);
   opacity: 0.65;
 }
 
-/* ── Status icon (○ or ✓) ── */
 .shopping-item-status {
   width: 22px;
   height: 22px;
@@ -42,7 +39,6 @@
   color: #fff;
 }
 
-/* ── Item Name ── */
 .shopping-item-name {
   flex: 1;
   color: var(--color-text);
@@ -58,7 +54,6 @@
   color: var(--color-text-light);
 }
 
-/* ── Dot Leader ── */
 .shopping-dots {
   flex: 1;
   margin: 0 8px;
@@ -72,7 +67,6 @@
   );
 }
 
-/* ── Quantity Badge ── */
 .shopping-item-quantity {
   font-size: 13px;
   font-weight: 600;
@@ -88,4 +82,9 @@
 .shopping-item--done .shopping-item-quantity {
   color: var(--color-text-light);
   background: rgba(0, 0, 0, 0.05);
+}
+
+.shopping-remove-btn:hover {
+  color: #e53935 !important;
+  background: rgba(229, 57, 53, 0.1);
 }

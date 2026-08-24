@@ -10,6 +10,7 @@
   padding: 20px;
 }
 
+
 .planner-slot-modal {
   background: #ffffff;
   border-radius: var(--radius-lg);
@@ -19,6 +20,11 @@
 
   box-shadow: 0 20px 60px rgba(156, 39, 176, 0.2);
 
+}
+
+@keyframes ps-slideUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .slot-header {
@@ -77,6 +83,35 @@
   color: var(--color-text-light);
   text-transform: uppercase;
 
+  margin: 0 0 14px;
+}
+
+.slot-header h2 {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+  background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  flex: 1;
+}
+
+.spacer { flex: 1; }
+
+.daily-meals {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.daily-meals h3 {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
   margin: 0 0 14px;
 }
 

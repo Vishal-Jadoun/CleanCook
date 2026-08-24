@@ -54,6 +54,7 @@
  
 }
 
+/* ── Nutrient Pills ── */
 .nutrient-pills {
   display: flex;
   gap: 8px;
@@ -88,7 +89,7 @@
   color: var(--color-text);
 }
 
-/* Pill colour variants */
+
 .pill.kcal    { background: rgba(255, 191,   0, 0.10); }
 .pill.kcal    .pill-value  { color: #b8860b; }
 
@@ -101,6 +102,10 @@
 .pill.carbs   { background: rgba(156,  39, 176, 0.08); }
 .pill.carbs   .pill-value  { color: var(--color-primary-dark); }
 
+
+.pill.carbs   { background: rgba(156,  39, 176, 0.08); }
+.pill.carbs   .pill-circle { background: var(--color-primary); }
+.pill.carbs   .pill-value  { color: var(--color-primary-dark); }
 
 .meal-details {
   padding: 18px 20px 14px;
@@ -123,6 +128,7 @@
 
 }
 
+/* ── Ingredients ── */
 .ingredients-section {
   padding: 18px 20px;
   border-bottom: 1px solid var(--color-border);

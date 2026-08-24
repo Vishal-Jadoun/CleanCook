@@ -8,7 +8,7 @@ const MealCard = ({ meal, onClose }) => {
     <div className="meal-card-overlay">
       <div className="meal-card-modal">
 
-        {/* Top Image Header */}
+    
         <div className="meal-image-container">
           <button
             className="back-btn-overlay"
@@ -84,21 +84,7 @@ const MealCard = ({ meal, onClose }) => {
 
           <h3>Ingredients</h3>
 
-          {/* <ul className="ingredients-list">
-            {Array.isArray(meal.ingredients) &&
-              meal.ingredients.map((ing, index) => (
-                <li key={index}>
-                  <span className="ing-name">
-                    {ing.item}
-                  </span>
-
-                  <span className="ing-amount">
-                    {ing.amount}
-                  </span>
-                </li>
-              ))}
-          </ul> */}
-
+         
         </div>
 
         <button className="get-plan-btn">
