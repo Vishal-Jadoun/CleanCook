@@ -6,7 +6,7 @@ function Dashboard() {
     <section id="dashboard-page" className="dashboard-page">
       <div className="dashboard">
 
-        {/* ================= HEADER ================= */}
+        {/*HEADER*/}
         <div className="dashboard-header">
           <div>
             <h1>
@@ -23,7 +23,7 @@ function Dashboard() {
         </div>
 
 
-        {/* ================= TOP SUMMARY CARDS ================= */}
+        {/*TOP SUMMARY CARDS*/}
         <div className="summary-cards">
 
           {/* Calories */}
@@ -106,7 +106,7 @@ function Dashboard() {
         </div>
 
 
-        {/* ================= NUTRITION ================= */}
+        {/*NUTRITIOn*/}
         <section className="nutrition-section">
 
           <div className="section-title">
@@ -208,7 +208,7 @@ function Dashboard() {
         </section>
 
 
-        {/* ================= BOTTOM SECTION ================= */}
+        {/*BOTTOM SECTION*/}
         <div className="bottom-section">
 
           {/* Favorites */}
