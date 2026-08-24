@@ -1,8 +1,4 @@
-/* ============================================
-   PLANNER SLOT — day detail modal/panel
-   ============================================ */
 
-/* Overlay */
 .planner-slot-overlay {
   position: fixed;
   inset: 0;
@@ -11,34 +7,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 500;
-  animation: ps-fadeIn 0.2s ease;
   padding: 20px;
 }
 
-@keyframes ps-fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-/* Modal panel */
 .planner-slot-modal {
   background: #ffffff;
   border-radius: var(--radius-lg);
   width: 100%;
   max-width: 480px;
   max-height: 90vh;
-  overflow-y: auto;
+
   box-shadow: 0 20px 60px rgba(156, 39, 176, 0.2);
-  animation: ps-slideUp 0.25s ease;
+
 }
 
-@keyframes ps-slideUp {
-  from { opacity: 0; transform: translateY(28px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ── Slot Header ── */
 .slot-header {
   display: flex;
   align-items: center;
@@ -62,13 +44,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background var(--transition-fast), transform var(--transition-fast);
-  flex-shrink: 0;
+ 
 }
 
 .back-btn:hover {
   background: rgba(156, 39, 176, 0.18);
-  transform: translateX(-2px);
+
 }
 
 .slot-header h2 {
@@ -77,15 +58,13 @@
   font-weight: 700;
   margin: 0;
   background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
   flex: 1;
 }
 
 .spacer { flex: 1; }
 
-/* ── Daily Meals Section ── */
+
 .daily-meals {
   padding: 20px 24px;
   border-bottom: 1px solid var(--color-border);
@@ -97,11 +76,10 @@
   font-weight: 600;
   color: var(--color-text-light);
   text-transform: uppercase;
-  letter-spacing: 0.6px;
+
   margin: 0 0 14px;
 }
 
-/* Each meal row */
 .meal-list-item {
   display: flex;
   align-items: center;
@@ -115,16 +93,13 @@
   cursor: pointer;
 }
 
-.meal-list-item:last-child {
-  margin-bottom: 0;
-}
+
 
 .meal-list-item:hover {
   border-color: var(--color-primary-light);
   box-shadow: 0 2px 10px rgba(156, 39, 176, 0.1);
 }
 
-/* Empty slot */
 .meal-list-item.empty {
   border-style: dashed;
   border-color: var(--color-border);
@@ -136,24 +111,13 @@
   font-style: italic;
 }
 
-.meal-icon {
-  font-size: 26px;
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, rgba(156, 39, 176, 0.08), rgba(76, 175, 80, 0.06));
-  border-radius: var(--radius-sm);
-  flex-shrink: 0;
-}
 
 .meal-info h4 {
   font-size: 13px;
   font-weight: 600;
   color: var(--color-text-light);
   text-transform: uppercase;
-  letter-spacing: 0.4px;
+
   margin: 0 0 3px;
 }
 
@@ -163,65 +127,6 @@
   color: var(--color-text);
   margin: 0;
 }
-
-/* ── Daily Tracker / Nutrients ── */
-.daily-tracker {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  padding: 20px 24px 24px;
-}
-
-/* Calorie circle */
-.tracker-circle {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 6px 18px rgba(156, 39, 176, 0.35);
-  flex-shrink: 0;
-}
-
-.cal-count {
-  font-family: var(--font-heading);
-  font-size: 20px;
-  font-weight: 700;
-  color: #ffffff;
-  line-height: 1;
-}
-
-.cal-label {
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.8);
-  margin-top: 3px;
-  letter-spacing: 0.5px;
-}
-
-/* Nutrient bars */
-.nutrient-bars {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.nutrient {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--color-text);
-  padding: 6px 12px;
-  border-radius: var(--radius-sm);
-}
-
-.nutrient.carbs  { background: rgba(255, 191, 0, 0.12);  color: #b8860b; }
-.nutrient.fat    { background: rgba(0, 150, 136, 0.10);  color: var(--color-accent); }
-.nutrient.protein{ background: rgba(76, 175, 80, 0.10);  color: var(--color-secondary-dark); }
-
-/* Responsive */
 @media (max-width: 500px) {
   .planner-slot-modal {
     max-width: 100%;

@@ -14,7 +14,7 @@ const MealCard = ({ meal, onClose }) => {
             className="back-btn-overlay"
             onClick={onClose}
           >
-            &lt;
+            {"<"}
           </button>
 
           <img
@@ -23,16 +23,13 @@ const MealCard = ({ meal, onClose }) => {
             className="meal-hero-img"
           />
 
-          <button className="heart-btn-overlay">
-            ♡
-          </button>
         </div>
 
-        {/* Nutrient Pills */}
+
         <div className="nutrient-pills">
 
           <div className="pill kcal">
-            <div className="pill-circle"></div>
+           
             <span className="pill-label">Kcal</span>
             <span className="pill-value">
               {meal.nutrients?.calories ?? 0}
@@ -40,7 +37,7 @@ const MealCard = ({ meal, onClose }) => {
           </div>
 
           <div className="pill protein">
-            <div className="pill-circle"></div>
+         
             <span className="pill-label">Protein</span>
             <span className="pill-value">
               {meal.nutrients?.protein ?? 0}g
@@ -48,7 +45,7 @@ const MealCard = ({ meal, onClose }) => {
           </div>
 
           <div className="pill fat">
-            <div className="pill-circle"></div>
+            
             <span className="pill-label">Fat</span>
             <span className="pill-value">
               {meal.nutrients?.fat ?? 0}g
@@ -56,7 +53,7 @@ const MealCard = ({ meal, onClose }) => {
           </div>
 
           <div className="pill carbs">
-            <div className="pill-circle"></div>
+        
             <span className="pill-label">Carbs</span>
             <span className="pill-value">
               {meal.nutrients?.carbs ?? 0}g
@@ -65,41 +62,29 @@ const MealCard = ({ meal, onClose }) => {
 
         </div>
 
-        {/* Title and Tags */}
+
         <div className="meal-details">
 
           <h2>{meal.name}</h2>
 
           <div className="meal-meta">
             <span>
-              🔥 {meal.nutrients?.calories ?? 0} Kcal
+               {meal.nutrients?.calories ?? 0} Kcal
             </span>
 
             <span>
-              ⏱️ {meal.prepTime || 'N/A'}
+               {meal.prepTime || 'N/A'}
             </span>
-          </div>
-
-          <div className="tags-container">
-            {Array.isArray(meal.tags) &&
-              meal.tags.map((tag, index) => (
-                <span
-                  key={index}
-                  className="meal-tag"
-                >
-                  {tag}
-                </span>
-              ))}
           </div>
 
         </div>
 
-        {/* Ingredients List */}
+
         <div className="ingredients-section">
 
           <h3>Ingredients</h3>
 
-          <ul className="ingredients-list">
+          {/* <ul className="ingredients-list">
             {Array.isArray(meal.ingredients) &&
               meal.ingredients.map((ing, index) => (
                 <li key={index}>
@@ -112,11 +97,10 @@ const MealCard = ({ meal, onClose }) => {
                   </span>
                 </li>
               ))}
-          </ul>
+          </ul> */}
 
         </div>
 
-        {/* Action Button */}
         <button className="get-plan-btn">
           Get Meal Plan
         </button>

@@ -1,17 +1,10 @@
 
-/* ============================================
-   PLANNER PAGE
-   Uses variables from src/styles/variables.css
-   ============================================ */
-
 .planner-container {
   min-height: 100vh;
-  /* background: linear-gradient(135deg, var(--color-bg) 0%, #ede7f6 50%, #f1f8e9 100%); */
   padding: 48px 24px;
   background-image:url(https://img.magnific.com/premium-photo/ingredients-cooking-food-background-with-herbs-vegetables-top-view-white-background_1040174-1574.jpg);
   background-size: cover;
    background-position: center;
-  /* background-attachment: fixed; */
   font-family: var(--font-main);
 }
 
@@ -22,12 +15,10 @@
   margin: 0 0 36px;
   text-align: center;
   background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Days row */
+
 .days-row {
   display: flex;
   gap: 12px;
@@ -36,7 +27,7 @@
   margin-bottom: 36px;
 }
 
-/* Responsive */
+
 @media (max-width: 640px) {
   .planner-container {
     padding: 32px 16px;
