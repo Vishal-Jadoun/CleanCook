@@ -1,7 +1,3 @@
-/* ============================================
-   DAY COLUMN — day selector button
-   ============================================ */
-
 .day-column {
   display: flex;
   flex-direction: column;
@@ -9,13 +5,11 @@
   justify-content: center;
   padding: 14px 20px;
   min-width: 100px;
-  background: #ffffff;
+  background: #fff;
   border: 1.5px solid var(--color-border);
   border-radius: var(--radius-md);
   cursor: pointer;
-  font-family: var(--font-main);
-  font-size: 14px;
-  font-weight: 500;
+  font: 500 14px var(--font-main);
   color: var(--color-text);
   box-shadow: var(--shadow-sm);
   transition: all var(--transition-normal);
@@ -23,51 +17,42 @@
   overflow: hidden;
 }
 
-/* Subtle purple left accent on hover */
-.day-column::before {
+.daycolumn::before {
   content: "";
   position: absolute;
   left: 0;
   top: 0;
-  bottom: 0;
   width: 3px;
+  height: 100%;
   background: var(--color-primary);
   transform: scaleY(0);
   transition: transform var(--transition-normal);
   border-radius: 0 2px 2px 0;
 }
 
-.day-column:hover {
+.daycolumn:hover {
   border-color: var(--color-primary-light);
-  box-shadow: 0 4px 14px rgba(156, 39, 176, 0.15);
-  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(156,39,176,.15);   
   color: var(--color-primary);
 }
 
-.day-column:hover::before {
-  transform: scaleY(1);
-}
 
-/* Active / selected state */
-.day-column.active {
+.daycolumn.active {
   background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
   border-color: var(--color-primary-dark);
-  color: #ffffff;
-  box-shadow: 0 6px 20px rgba(156, 39, 176, 0.4);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(156,39,176,.4);
   transform: translateY(-2px);
 }
 
-.day-column.active::before {
-  display: none;
-}
+.daycolumn.active::before { display: none; }
 
-.day-full {
+.displayname{
   font-size: 14px;
   font-weight: 600;
-  letter-spacing: 0.2px;
+  letter-spacing: .2px;
 }
 
-/* Responsive */
 @media (max-width: 640px) {
   .day-column {
     min-width: 72px;

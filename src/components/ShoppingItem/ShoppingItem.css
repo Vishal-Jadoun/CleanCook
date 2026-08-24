@@ -1,8 +1,9 @@
 .shopping-item {
   display: flex;
   align-items: center;
-  min-height: 44px;
-  padding: 8px 18px;
+  gap: 12px;
+  min-height: 48px;
+  padding: 10px 18px;
   font-size: 14px;
   font-family: var(--font-main);
   border-bottom: 1px solid var(--color-border);
@@ -10,73 +11,52 @@
 }
 
 .shopping-item:last-child { border-bottom: none; }
-.shopping-item:hover { background: rgba(156, 39, 176, 0.03); }
-.shopping-item--checked { background: rgba(76, 175, 80, 0.04); }
+.shopping-item:hover { background: rgba(156, 39, 176, 0.04); }
 
-/* Label */
-.shopping-item-label {
+.shopping-item--done {
+  background: rgba(76, 175, 80, 0.05);
+  opacity: 0.65;
+}
+
+.shopping-item-status {
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
-  gap: 12px;
-  cursor: pointer;
-  min-width: 0;
-}
-
-/* Custom Checkbox */
-.shopping-checkbox {
-  appearance: none;
-  -webkit-appearance: none;
-  width: 18px;
-  height: 18px;
-  min-width: 18px;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
   border: 2px solid var(--color-border);
-  border-radius: 4px;
-  background: transparent;
-  cursor: pointer;
-  position: relative;
-  transition: border-color var(--transition-fast), background var(--transition-fast);
+  color: var(--color-text-light);
+  background: #fff;
 }
 
-.shopping-checkbox:hover { border-color: var(--color-primary); }
-
-.shopping-checkbox:checked {
-  background: linear-gradient(135deg, var(--color-secondary), var(--color-secondary-dark));
+.shopping-item--done .shopping-item-status {
   border-color: var(--color-secondary);
+  background: linear-gradient(135deg, var(--color-secondary), var(--color-secondary-dark));
+  color: #fff;
 }
 
-.shopping-checkbox:checked::after {
-  content: "";
-  position: absolute;
-  left: 4px;
-  top: 1px;
-  width: 5px;
-  height: 9px;
-  border: 2px solid #fff;
-  border-top: none;
-  border-left: none;
-  transform: rotate(45deg);
-}
-
-/* Name */
 .shopping-item-name {
+  flex: 1;
   color: var(--color-text);
   font-size: 14px;
   font-weight: 400;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  transition: color var(--transition-fast);
 }
 
-.item-crossed {
+.shopping-item--done .shopping-item-name {
   text-decoration: line-through;
   color: var(--color-text-light);
 }
 
-/* Dot leader */
 .shopping-dots {
   flex: 1;
-  margin: 0 12px;
+  margin: 0 8px;
   height: 1px;
   background: repeating-linear-gradient(
     to right,
@@ -87,40 +67,21 @@
   );
 }
 
-/* Quantity badge */
 .shopping-item-quantity {
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--color-primary);
-  background: rgba(156, 39, 176, 0.08);
-  padding: 3px 10px;
+  background: rgba(156, 39, 176, 0.09);
+  padding: 4px 12px;
   border-radius: 999px;
   white-space: nowrap;
   min-width: 52px;
   text-align: center;
 }
 
-.shopping-item--checked .shopping-item-quantity {
+.shopping-item--done .shopping-item-quantity {
   color: var(--color-text-light);
   background: rgba(0, 0, 0, 0.05);
-}
-
-/* Remove button */
-.shopping-remove-btn {
-  border: none;
-  background: transparent;
-  color: transparent;
-  font-size: 12px;
-  cursor: pointer;
-  padding: 4px 6px;
-  border-radius: 4px;
-  margin-left: 8px;
-  transition: color var(--transition-fast), background var(--transition-fast);
-  line-height: 1;
-}
-
-.shopping-item:hover .shopping-remove-btn {
-  color: var(--color-text-light);
 }
 
 .shopping-remove-btn:hover {

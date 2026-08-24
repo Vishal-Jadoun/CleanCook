@@ -1,0 +1,185 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap");
+
+.shoppinglist-page {
+  min-height: 100vh;
+  background: linear-gradient(160deg, #f7f4fa 0%, #ede7f6 60%, #f1f8e9 100%);
+  padding: 48px 20px;
+  font-family: var(--font-main);
+}
+
+.shoppinglist-wrapper {
+  max-width: 660px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 16px 48px rgba(156, 39, 176, 0.13), 0 4px 16px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  border: 1px solid rgba(156, 39, 176, 0.1);
+}
+
+/* ── Header ── */
+.shoppinglist-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 32px 36px 24px;
+  background: linear-gradient(135deg, rgba(156, 39, 176, 0.08), rgba(76, 175, 80, 0.06));
+  border-bottom: 1px solid var(--color-border);
+}
+
+.shoppinglist-icon {
+  font-size: 40px;
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(156, 39, 176, 0.3);
+  flex-shrink: 0;
+  transition: transform var(--transition-normal);
+}
+
+.shoppinglist-icon:hover { transform: rotate(-5deg) scale(1.05); }
+
+.shoppinglist-title {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 4px;
+  background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.shoppinglist-subtitle {
+  margin: 0;
+  color: var(--color-text-light);
+  font-size: 14px;
+}
+
+/* ── Body ── */
+.shoppinglist-body {
+  padding: 28px 36px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ── Category Block ── */
+.sl-category {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: box-shadow var(--transition-normal), transform var(--transition-normal);
+}
+
+.sl-category:hover {
+  box-shadow: 0 6px 20px rgba(156, 39, 176, 0.1);
+  transform: translateY(-2px);
+}
+
+.sl-category-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  background: linear-gradient(90deg, rgba(156, 39, 176, 0.07), transparent);
+  border-bottom: 1px solid var(--color-border);
+  font-size: 18px;
+}
+
+.sl-category-name {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+  flex: 1;
+}
+
+.sl-category-badge {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-primary);
+  background: rgba(156, 39, 176, 0.1);
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+/* ── Items ── */
+.sl-items {
+  list-style: none;
+  margin: 0;
+  padding: 6px 0;
+}
+
+.sl-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 18px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  transition: background var(--transition-fast);
+}
+
+.sl-item:last-child { border-bottom: none; }
+.sl-item:hover { background: rgba(156, 39, 176, 0.03); }
+
+.sl-item--done {
+  opacity: 0.6;
+}
+
+.sl-item--done .sl-item-name {
+  text-decoration: line-through;
+  color: var(--color-text-light);
+}
+
+.sl-item-dot {
+  width: 8px;
+  height: 8px;
+  min-width: 8px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  opacity: 0.5;
+}
+
+.sl-item--done .sl-item-dot {
+  background: var(--color-secondary);
+  opacity: 1;
+}
+
+.sl-item-name {
+  flex: 1;
+  font-size: 14px;
+  color: var(--color-text);
+  font-weight: 400;
+}
+
+.sl-item-qty {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-primary);
+  background: rgba(156, 39, 176, 0.08);
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.sl-item-tag {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-secondary-dark);
+  background: rgba(76, 175, 80, 0.12);
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .shoppinglist-header { padding: 24px 20px 20px; }
+  .shoppinglist-body { padding: 20px 16px 32px; }
+  .shoppinglist-title { font-size: 22px; }
+}
