@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- The bold "C" arc -->
+  <path d="M 38 20 A 30 30 0 1 0 76 65" fill="none" stroke="#4caf50" stroke-width="18" stroke-linecap="round" />
+  
+  <!-- The detached, perfectly symmetrical Leaf nestled in the gap -->
+  <path d="M 55 45 Q 55 15, 85 15 Q 85 45, 55 45 Z" fill="#4caf50" />
+  
+  <!-- The clean white vein down the center of the leaf -->
+  <line x1="58" y1="42" x2="78" y2="22" stroke="#fff" stroke-width="3.5" stroke-linecap="round" />
+</svg>
