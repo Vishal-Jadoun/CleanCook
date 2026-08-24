@@ -6,7 +6,6 @@ function Dashboard() {
     <section id="dashboard-page" className="dashboard-page">
       <div className="dashboard">
 
-        {/*HEADER*/}
         <div className="dashboard-header">
           <div>
             <h1>
@@ -23,10 +22,10 @@ function Dashboard() {
         </div>
 
 
-        {/*TOP SUMMARY CARDS*/}
+     
         <div className="summary-cards">
 
-          {/* Calories */}
+  
           <div className="summary-card calories-card">
 
             <div className="summary-icon">
@@ -52,7 +51,7 @@ function Dashboard() {
           </div>
 
 
-          {/* BMI */}
+ 
           <div className="summary-card bmi-card">
 
             <div className="summary-icon">
@@ -78,7 +77,7 @@ function Dashboard() {
           </div>
 
 
-          {/* Water */}
+
           <div className="summary-card water-card">
 
             <div className="summary-icon">
@@ -106,7 +105,7 @@ function Dashboard() {
         </div>
 
 
-        {/*NUTRITIOn*/}
+       
         <section className="nutrition-section">
 
           <div className="section-title">
@@ -120,7 +119,7 @@ function Dashboard() {
 
           <div className="nutrition-container">
 
-            {/* Protein */}
+     
             <div className="nutrition-item">
 
               <div className="nutrition-icon protein-icon">
@@ -148,7 +147,7 @@ function Dashboard() {
             </div>
 
 
-            {/* Carbs */}
+   
             <div className="nutrition-item">
 
               <div className="nutrition-icon carbs-icon">
@@ -176,7 +175,7 @@ function Dashboard() {
             </div>
 
 
-            {/* Fat */}
+
             <div className="nutrition-item">
 
               <div className="nutrition-icon fat-icon">
@@ -208,7 +207,7 @@ function Dashboard() {
         </section>
 
 
-        {/*BOTTOM SECTION*/}
+        {/* ================= BOTTOM SECTION ================= */}
         <div className="bottom-section">
 
           {/* Favorites */}
