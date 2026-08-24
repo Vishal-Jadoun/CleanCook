@@ -16,31 +16,31 @@ const MealCard = ({ meal, onClose }) => {
           <button className="heart-btn-overlay">♡</button>
         </div>
 
-        {/* Nutrient Pills */}
+
         <div className="nutrient-pills">
           <div className="pill kcal">
-            <div className="pill-circle"></div>
+           
             <span className="pill-label">Kcal</span>
             <span className="pill-value">{meal.nutrients.calories}</span>
           </div>
           <div className="pill protein">
-            <div className="pill-circle"></div>
+         
             <span className="pill-label">Protein</span>
             <span className="pill-value">{meal.nutrients.protein}g</span>
           </div>
           <div className="pill fat">
-            <div className="pill-circle"></div>
+            
             <span className="pill-label">Fat</span>
             <span className="pill-value">{meal.nutrients.fat}g</span>
           </div>
           <div className="pill carbs">
-            <div className="pill-circle"></div>
+        
             <span className="pill-label">Carbs</span>
             <span className="pill-value">{meal.nutrients.carbs}g</span>
           </div>
         </div>
 
-        {/* Title and Tags */}
+
         <div className="meal-details">
           <h2>{meal.name}</h2>
           <div className="meal-meta">
@@ -54,7 +54,7 @@ const MealCard = ({ meal, onClose }) => {
           </div>
         </div>
 
-        {/* Ingredients List */}
+
         <div className="ingredients-section">
           <h3>Ingredients</h3>
           <ul className="ingredients-list">
