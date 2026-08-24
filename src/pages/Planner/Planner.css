@@ -1,43 +1,23 @@
-
 .planner-container {
+  max-width: 95%; /* THIS MAKES IT COVER THE MAXIMUM PAGE WIDTH */
+  margin: 0 auto;
+  padding: 40px 20px;
+  background-color: #f4f6fa;
   min-height: 100vh;
-  padding: 48px 24px;
-  background-image:url(https://img.magnific.com/premium-photo/ingredients-cooking-food-background-with-herbs-vegetables-top-view-white-background_1040174-1574.jpg);
-  background-size: cover;
-   background-position: center;
-  font-family: var(--font-main);
+  font-family: 'Inter', sans-serif;
 }
 
 .planner-title {
-  font-family: var(--font-heading);
-  font-size: 32px;
-  font-weight: 700;
-  margin: 0 0 36px;
   text-align: center;
-  background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
-  background-clip: text;
+  margin-bottom: 40px;
+  color: #111;
+  font-size: 2.5rem; /* Made the title a bit bigger too */
 }
-
 
 .days-row {
   display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 36px;
-}
-
-
-@media (max-width: 640px) {
-  .planner-container {
-    padding: 32px 16px;
-  }
-
-  .planner-title {
-    font-size: 24px;
-  }
-
-  .days-row {
-    gap: 8px;
-  }
+  justify-content: space-between;
+  gap: 20px; /* More space between the day blocks */
+  overflow-x: auto;
+  padding-bottom: 20px;
 }

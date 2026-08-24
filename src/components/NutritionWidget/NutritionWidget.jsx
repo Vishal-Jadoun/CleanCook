@@ -3,12 +3,8 @@ import './NutritionWidget.css';
 function NutritionWidget() {
   return (
     <div className="nutrition-widget">
-<<<<<<< HEAD
-      <h3>Nutrition Profile</h3>
-      <p>Component coming soon</p>
-=======
-      {/* Header */}
-      <div className="nutrition-header">
+{/* Header */}
+<div className="nutrition-header">
         <div className="nutrition-icon">
           🥗
         </div>
@@ -60,7 +56,6 @@ function NutritionWidget() {
           </div>
         </div>
       </div>
->>>>>>> 955e056a67756409d4c21bcbc8ecadf0134fddd6
     </div>
   );
 }
