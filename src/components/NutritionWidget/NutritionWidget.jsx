@@ -3,10 +3,6 @@ import './NutritionWidget.css';
 function NutritionWidget() {
   return (
     <div className="nutrition-widget">
-<<<<<<< HEAD
-      <h3>Nutrition Profile</h3>
-      <p>Component coming soon</p>
-=======
       {/* Header */}
       <div className="nutrition-header">
         <div className="nutrition-icon">
@@ -14,7 +10,7 @@ function NutritionWidget() {
         </div>
         <div className="nutrition-title">
           <h3>Daily Nutrition</h3>
-          <p>Track your calories & macros</p>
+          <p>Track your calories &amp; macros</p>
         </div>
       </div>
       {/* Calories Section */}
@@ -60,7 +56,6 @@ function NutritionWidget() {
           </div>
         </div>
       </div>
->>>>>>> 955e056a67756409d4c21bcbc8ecadf0134fddd6
     </div>
   );
 }
