@@ -138,7 +138,7 @@ This project follows a **feature-branch workflow**:
 |---|---|---|
 | **Vishal Jadoun** | [@Vishal-Jadoun](https://github.com/Vishal-Jadoun) | Navbar, Footer, Hero Section, Recipes Page, Recipe Details Page |
 | **Harnoor Kaur Khakh** | [@HarnoorKaurKhakh](https://github.com/HarnoorKaurKhakh) | Meal Planner, Shopping List |
-| **Aditya Bansal** | [@addydotcom](https://github.com/addydotcom) | Login, Signup, Profile Page, Profile Card, Favorites |
+| **Aditya Bansal** | [@ifakeaddy](https://github.com/ifakeaddy) | Login, Signup, Profile Page, Profile Card, Favorites |
 
 ---
 
