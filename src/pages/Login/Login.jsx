@@ -1,61 +1,55 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import "./Login.css";
+
 function Login() {
+  // Store what the user types.
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
+  // Store the message shown after submitting.
+  const [message, setMessage] = useState("");
 
-//js
+  function handleSubmit(event) {
+    // Prevent the form from refreshing the page.
+    event.preventDefault();
 
-
-
+    setMessage(
+      "Form submitted. This is a demo; account verification is not connected yet."
+    );
+  }
 
   return (
-
-
-
-    //html
-
-
-
     <section id="login-page">
-      
-    <div className="login-box">
+      <div className="login-box">
+        <h1>Clean Cook</h1>
+        <p>Welcome back! Enter your details.</p>
 
-      <div className="logo">
-        <img src="#" alt="" /> {/*logo*/}
-      </div>
-      <h1>Clean Cook</h1>
+        <form onSubmit={handleSubmit}>
+          <div className="input-box">
+            <label htmlFor="email">Email</label>
 
-      <form>
+            <input id="email" type="email" placeholder="Enter your email" value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" required/>
+          </div>
 
-            <div class="input-box">
-              
-                <input
-                    type="email"
-                    placeholder="Email"
-                    required
-                />
-            </div>
+          <div className="input-box">
+            <label htmlFor="password">Password</label>
 
-            <div class="input-box">
-                <input
-                    type="password"
-                    placeholder="Password"
-                    required
-                />
-            </div>
+            <input id="password" type="password" placeholder="Enter your password" value={password}onChange={(event) =>     setPassword(event.target.value)} autoComplete="current-password" required/>
+          </div>
 
-            <button class="login-btn" type="submit">
-                Sign In
-            </button>
-
+          <button className="login-btn" type="submit">
+            Sign In
+          </button>
         </form>
 
-        <div class="signup">
-            Don't have an account?
-            <a href="#">Sign up, it's free!</a>
+        {message && <p role="status">{message}</p>}
+
+        <div className="signup">
+          Don't have an account?{" "}
+          <Link to="/signup">Sign up, it's free!</Link>
         </div>
-
-    </div>
-
+      </div>
     </section>
   );
 }
