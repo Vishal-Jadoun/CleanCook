@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import './Dashboard.css';
 import BMICalculator from "../../components/BMICalculator/BMICalculator";
+import WaterTracker from "../../components/WaterTracker/WaterTracker";
 
 function Dashboard() {
   return (
@@ -57,29 +58,7 @@ function Dashboard() {
 
 
 
-          <div className="summary-card water-card">
-
-            <div className="summary-icon">
-              💧
-            </div>
-
-            <div className="summary-content">
-
-              <h3>Water Intake</h3>
-
-              <div className="water-icons">
-                <span>💧</span>
-                <span>💧</span>
-                <span>💧</span>
-                <span>💧</span>
-                <span className="empty-water">💧</span>
-              </div>
-
-              <p>4 / 8 glasses</p>
-
-            </div>
-
-          </div>
+          <WaterTracker />
 
         </div>
 
