@@ -1,9 +1,28 @@
 import { useState } from "react";
 import "./BMICalculator.css";
 
+function loadMeasurements() {
+  try {
+    const saved = localStorage.getItem("cleancook-profile");
+    const profile = saved ? JSON.parse(saved) : null;
+
+    return {
+      height: profile?.height || "",
+      weight: profile?.weight || "",
+    };
+  } catch {
+    return {
+      height: "",
+      weight: "",
+    };
+  }
+}
+
 function BMICalculator() {
-  const [height, setHeight] = useState("");
-  const [weight, setWeight] = useState("");
+  const [savedMeasurements] = useState(loadMeasurements);
+
+const [height, setHeight] = useState(savedMeasurements.height);
+const [weight, setWeight] = useState(savedMeasurements.weight);
   const [bmi, setBmi] = useState("");
   const [error, setError] = useState("");
 
