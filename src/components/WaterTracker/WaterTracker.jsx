@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./WaterTracker.css";
 import { useEffect, useState } from "react";
 
