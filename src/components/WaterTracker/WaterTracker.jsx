@@ -30,6 +30,27 @@ function loadWaterCount() {
   }
 }
 
+function loadWaterGoal() {
+  try {
+    const saved = localStorage.getItem("cleancook-profile");
+
+    if (saved === null) {
+      return 8;
+    }
+
+    const profile = JSON.parse(saved);
+    const savedGoal = Number(profile?.waterGoal);
+
+    if (Number.isInteger(savedGoal) && savedGoal > 0) {
+      return savedGoal;
+    }
+
+    return 8;
+  } catch {
+    return 8;
+  }
+}
+
 function WaterTracker() {
   const [glasses, setGlasses] = useState(loadWaterCount);
   const [storageError, setStorageError] = useState("");
@@ -49,7 +70,7 @@ function WaterTracker() {
   }, [glasses]);
 
   // Example goal for the project demo.
-  const goal = 8;
+  const [goal] = useState(loadWaterGoal);
   const progress = Math.min((glasses / goal) * 100, 100);
 
   function addGlass() {
@@ -108,13 +129,13 @@ function WaterTracker() {
 
         {glasses >= goal && (
           <p className="water-goal-message">
-            You reached your demo goal!
+            You reached your saved goal!
           </p>
         )}
 
         <small className="water-note">
-          Demo goal: 8 glasses. Your count is saved in this browser and
-          resets when you reopen or refresh the tracker on a new day.
+          Your saved goal is {goal} glasses. Change it in Profile, then
+          reopen the dashboard. Your daily count is saved in this browser.
         </small>
 
         {storageError && <p role="status">{storageError}</p>}
