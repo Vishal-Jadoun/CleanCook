@@ -1,306 +1,190 @@
-import { Link } from 'react-router-dom';
-import './Dashboard.css';
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import BMICalculator from "../../components/BMICalculator/BMICalculator";
 import WaterTracker from "../../components/WaterTracker/WaterTracker";
+import NutritionWidget from "../../components/NutritionWidget/NutritionWidget";
+import "./Dashboard.css";
+
+function loadDashboardProfile() {
+  const defaults = {
+    name: "Aditya Bansal",
+    dailyCalories: 2000,
+  };
+
+  try {
+    const saved = localStorage.getItem("cleancook-profile");
+    const profile = saved ? JSON.parse(saved) : null;
+
+    if (!profile) {
+      return defaults;
+    }
+
+    const calories = Number(profile.dailyCalories);
+
+    return {
+      name:
+        typeof profile.name === "string" && profile.name.trim()
+          ? profile.name.trim()
+          : defaults.name,
+      dailyCalories:
+        Number.isFinite(calories) && calories > 0
+          ? calories
+          : defaults.dailyCalories,
+    };
+  } catch {
+    return defaults;
+  }
+}
+
+function getGreeting() {
+  const hour = new Date().getHours();
+
+  if (hour < 12) {
+    return "Good morning";
+  }
+
+  if (hour < 18) {
+    return "Good afternoon";
+  }
+
+  return "Good evening";
+}
+
+// Example values until the team's planner is connected.
+const sampleNutrition = {
+  calories: 1450,
+  protein: 85,
+  carbs: 180,
+  fat: 45,
+};
+
+const recipeIdeas = [
+  { name: "Paneer Salad", icon: "🥗" },
+  { name: "Oats & Berries", icon: "🥣" },
+  { name: "Masala Dosa", icon: "🥞" },
+  { name: "Veg Bowl", icon: "🥑" },
+];
 
 function Dashboard() {
+  const [profile] = useState(loadDashboardProfile);
+
+  const firstName = profile.name.split(/\s+/)[0];
+  const initial = profile.name.charAt(0).toUpperCase();
+
+  const caloriePercent = Math.round(
+    (sampleNutrition.calories / profile.dailyCalories) * 100
+  );
+
   return (
     <section id="dashboard-page" className="dashboard-page">
       <div className="dashboard">
-
         <div className="dashboard-header">
           <div>
             <h1>
-              Good morning, <span>Aditya!</span> 👋
+              {getGreeting()}, <span>{firstName}!</span> 👋
             </h1>
-
-            <p>Let's make today a healthy one.</p>
+            <p>Your health tools and daily goals in one place.</p>
           </div>
 
-          <Link to="/profile" className="dashboard-profile" style={{ textDecoration: 'none' }}>
-            <div className="profile-circle">A</div>
-            <span>⌄</span>
+          <Link
+            to="/profile"
+            className="dashboard-profile"
+            aria-label="Open your profile"
+          >
+            <div className="profile-circle">{initial}</div>
+            <span>Edit profile</span>
           </Link>
         </div>
 
-
-     
         <div className="summary-cards">
-
-  
           <div className="summary-card calories-card">
-
-            <div className="summary-icon">
+            <div className="summary-icon" aria-hidden="true">
               🔥
             </div>
 
             <div className="summary-content">
-              <h3>Calories Today</h3>
+              <h3>Calories — Sample Day</h3>
 
               <div className="summary-number">
-                1,450
+                {sampleNutrition.calories.toLocaleString()}
               </div>
 
-              <p>/ 2,000 kcal</p>
+              <p>
+                / {profile.dailyCalories.toLocaleString()} kcal
+              </p>
 
-              <div className="progress-bar">
-                <div className="progress calories-progress"></div>
-              </div>
+              <progress
+                className="dashboard-calorie-progress"
+                value={Math.min(caloriePercent, 100)}
+                max="100"
+                aria-label="Sample calories compared with your saved goal"
+              />
 
-              <span className="progress-text">72%</span>
+              <span className="progress-text">
+                {caloriePercent}% of your saved goal
+              </span>
+
+              <small className="dashboard-note">
+                Intake is sample data. The target comes from your profile.
+              </small>
             </div>
-
           </div>
 
-
- 
           <BMICalculator />
-
-
-
           <WaterTracker />
-
         </div>
 
+        <NutritionWidget nutrition={sampleNutrition} />
 
-       
-        <section className="nutrition-section">
-
-          <div className="section-title">
-            <h2>Today's Nutrition</h2>
-
-            <a href="#">
-              View Details
-            </a>
-          </div>
-
-
-          <div className="nutrition-container">
-
-     
-            <div className="nutrition-item">
-
-              <div className="nutrition-icon protein-icon">
-                🍗
-              </div>
-
-              <div className="nutrition-details">
-
-                <h3>Protein</h3>
-
-                <p>
-                  <strong>85g</strong> / 120g
-                </p>
-
-                <div className="nutrition-progress">
-                  <div className="protein-bar"></div>
-                </div>
-
-              </div>
-
-              <span className="nutrition-percent">
-                71%
-              </span>
-
-            </div>
-
-
-   
-            <div className="nutrition-item">
-
-              <div className="nutrition-icon carbs-icon">
-                🍞
-              </div>
-
-              <div className="nutrition-details">
-
-                <h3>Carbs</h3>
-
-                <p>
-                  <strong>180g</strong> / 250g
-                </p>
-
-                <div className="nutrition-progress">
-                  <div className="carbs-bar"></div>
-                </div>
-
-              </div>
-
-              <span className="nutrition-percent">
-                72%
-              </span>
-
-            </div>
-
-
-
-            <div className="nutrition-item">
-
-              <div className="nutrition-icon fat-icon">
-                🥑
-              </div>
-
-              <div className="nutrition-details">
-
-                <h3>Fat</h3>
-
-                <p>
-                  <strong>45g</strong> / 65g
-                </p>
-
-                <div className="nutrition-progress">
-                  <div className="fat-bar"></div>
-                </div>
-
-              </div>
-
-              <span className="nutrition-percent">
-                69%
-              </span>
-
-            </div>
-
-          </div>
-
-        </section>
-
-
-        {/* ================= BOTTOM SECTION ================= */}
         <div className="bottom-section">
-
-          {/* Favorites */}
           <section className="favorites-section">
-
             <div className="section-title">
-              <h2>Your Favorites</h2>
-
-              <a href="#">
-                View All
-              </a>
+              <h2>Recipe Ideas</h2>
+              <Link to="/recipes">Browse recipes</Link>
             </div>
 
+            <p className="dashboard-note">
+              Example ideas, not your saved favorites.
+            </p>
 
             <div className="favorite-items">
+              {recipeIdeas.map((recipe) => (
+                <div className="favorite-card" key={recipe.name}>
+                  <div className="food-placeholder" aria-hidden="true">
+                    {recipe.icon}
+                  </div>
 
-              <div className="favorite-card">
-
-                <div className="food-placeholder">
-                  🥗
+                  <div className="favorite-info">
+                    <h3>{recipe.name}</h3>
+                  </div>
                 </div>
-
-                <div className="favorite-info">
-                  <h3>Paneer Salad</h3>
-                  <span>♡</span>
-                </div>
-
-              </div>
-
-
-              <div className="favorite-card">
-
-                <div className="food-placeholder">
-                  🥣
-                </div>
-
-                <div className="favorite-info">
-                  <h3>Oats & Berries</h3>
-                  <span>♡</span>
-                </div>
-
-              </div>
-
-
-              <div className="favorite-card">
-
-                <div className="food-placeholder">
-                  🥞
-                </div>
-
-                <div className="favorite-info">
-                  <h3>Masala Dosa</h3>
-                  <span>♡</span>
-                </div>
-
-              </div>
-
-
-              <div className="favorite-card">
-
-                <div className="food-placeholder">
-                  🥑
-                </div>
-
-                <div className="favorite-info">
-                  <h3>Veg Bowl</h3>
-                  <span>♡</span>
-                </div>
-
-              </div>
-
+              ))}
             </div>
-
           </section>
 
-
-          {/* Recent Activity */}
           <section className="activity-section">
-
             <div className="section-title">
-
-              <h2>Recent Activity</h2>
-
-              <a href="#">
-                View All
-              </a>
-
+              <h2>Quick Actions</h2>
             </div>
 
+            <Link className="dashboard-action" to="/profile">
+              👤 Edit your profile and goals
+            </Link>
 
-            <div className="activity-item">
+            <Link className="dashboard-action" to="/planner">
+              📅 Open your meal planner
+            </Link>
 
-              <div className="activity-icon purple">
-                ♡
-              </div>
+            <Link className="dashboard-action" to="/recipes">
+              🥗 Explore recipes
+            </Link>
 
-              <div className="activity-content">
-                <p>Added Butter Chicken to favorites</p>
-                <span>2 hours ago</span>
-              </div>
-
-            </div>
-
-
-            <div className="activity-item">
-
-              <div className="activity-icon green">
-                ✓
-              </div>
-
-              <div className="activity-content">
-                <p>Planned meals for Monday</p>
-                <span>Yesterday</span>
-              </div>
-
-            </div>
-
-
-            <div className="activity-item">
-
-              <div className="activity-icon blue">
-                ◉
-              </div>
-
-              <div className="activity-content">
-                <p>Updated calorie goal to 2,000 kcal</p>
-                <span>3 days ago</span>
-              </div>
-
-            </div>
-
+            <p className="dashboard-note">
+              After saving profile changes, reopen this dashboard to
+              load the updated values.
+            </p>
           </section>
-
         </div>
-
       </div>
     </section>
   );
