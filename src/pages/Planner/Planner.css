@@ -1,9 +1,8 @@
 .planner-page-wrapper {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 36px 24px 60px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   font-family: var(--font-main, 'Inter', sans-serif);
-  min-height: 100vh;
 }
 
 .planner-main-header {
@@ -16,16 +15,16 @@
 }
 
 .planner-page-title {
-  font-size: 2.2rem;
+  font-size: 32px;
   font-weight: 800;
-  color: #2b253d;
+  color: var(--color-text, #2b253d);
   margin: 0 0 6px;
   letter-spacing: -0.5px;
 }
 
 .planner-page-desc {
-  color: #6b7280;
-  font-size: 1rem;
+  color: var(--color-text-light, #6c757d);
+  font-size: 15px;
   margin: 0;
 }
 
@@ -35,31 +34,31 @@
 }
 
 .primary-pill-btn {
-  background: #9c27b0;
+  background: var(--color-primary, #9c27b0);
   color: #ffffff;
   border: none;
-  padding: 12px 22px;
-  border-radius: 14px;
+  padding: 10px 20px;
+  border-radius: 10px;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 14px;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(156, 39, 176, 0.25);
+  box-shadow: var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.08));
 }
 
 .primary-pill-btn:hover {
-  background: #7b1fa2;
+  background: var(--color-primary-dark, #7b1fa2);
   transform: translateY(-1px);
 }
 
 .secondary-sync-btn {
-  background: #ecfdf5;
-  color: #065f46;
-  border: 1px solid #a7f3d0;
-  padding: 12px 18px;
-  border-radius: 14px;
+  background: var(--color-success-bg, #e8f5e9);
+  color: var(--color-success-text, #2e7d32);
+  border: 1px solid #c8e6c9;
+  padding: 10px 18px;
+  border-radius: 10px;
   font-weight: 600;
-  font-size: 0.92rem;
+  font-size: 14px;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
@@ -68,9 +67,7 @@
 }
 
 .secondary-sync-btn:hover {
-  background: #10b981;
-  color: #ffffff;
-  border-color: #10b981;
+  background: #c8e6c9;
   transform: translateY(-1px);
 }
 
@@ -78,10 +75,10 @@
   background: #ffffff;
   color: #ef4444;
   border: 1px solid #fee2e2;
-  padding: 12px 18px;
-  border-radius: 14px;
+  padding: 10px 18px;
+  border-radius: 10px;
   font-weight: 600;
-  font-size: 0.92rem;
+  font-size: 14px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
