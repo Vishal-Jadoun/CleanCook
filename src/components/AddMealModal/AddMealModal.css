@@ -1,0 +1,23 @@
+.add-meal-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.form-row-3col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 600px) {
+  .form-row-2col,
+  .form-row-3col {
+    grid-template-columns: 1fr;
+  }
+}
