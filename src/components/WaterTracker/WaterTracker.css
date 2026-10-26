@@ -1,7 +1,60 @@
-.water-tracker {
-  padding: 20px;
-  background-color: var(--color-bg-card);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--color-border);
+.water-card .water-count {
+  margin: 12px 0;
+  font-size: 18px;
+}
+
+.water-card .water-count strong {
+  font-size: 30px;
+  color: #245c36;
+}
+
+.water-progress {
+  display: block;
+  width: 100%;
+  height: 12px;
+  margin: 16px 0;
+  accent-color: #347ce4;
+}
+
+.water-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.water-actions button {
+  padding: 9px 12px;
+  border: 1px solid #d6e4f0;
+  border-radius: 6px;
+  background-color: #edf5ff;
+  color: #24527a;
+  font: inherit;
+  cursor: pointer;
+}
+
+.water-actions button:hover:not(:disabled) {
+  background-color: #dcecff;
+}
+
+.water-actions button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.water-actions button:focus-visible {
+  outline: 2px solid #347ce4;
+  outline-offset: 2px;
+}
+
+.water-card .water-goal-message {
+  margin-top: 12px;
+  color: #245c36;
+  font-weight: 600;
+}
+
+.water-note {
+  display: block;
+  margin-top: 14px;
+  color: #666;
+  line-height: 1.5;
 }
