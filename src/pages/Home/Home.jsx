@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
 import heroImg from '../../assets/hero.png';
@@ -11,7 +12,85 @@ import xbowl from '../../assets/xbowl.png';
 import ybowl from '../../assets/ybowl.png';
 import zbowl from '../../assets/zbowl.png';
 
+const DAYS_SCHEDULE = [
+  {
+    day: 'Monday',
+    subtitle: 'Monday, Planned Meals',
+    meals: [
+      { type: 'Breakfast', name: 'Grilled Chicken Mediterranean Bowl', image: ybowl },
+      { type: 'Lunch', name: 'Tuna Mango Poke Bowl', image: zbowl },
+      { type: 'Dinner', name: 'Mediterranean Falafel Bowl', image: xbowl },
+    ],
+  },
+  {
+    day: 'Tuesday',
+    subtitle: 'Tuesday, Planned Meals',
+    meals: [
+      { type: 'Breakfast', name: 'Quinoa Berry Power Bowl', image: bbowl },
+      { type: 'Lunch', name: 'Sweet Potato Avocado Crunch', image: cbowl },
+      { type: 'Dinner', name: 'Grilled Salmon Superfood Bowl', image: heroImg },
+    ],
+  },
+  {
+    day: 'Wednesday',
+    subtitle: 'Wednesday, Planned Meals',
+    meals: [
+      { type: 'Breakfast', name: 'Chia Green Vitality Bowl', image: zbowl },
+      { type: 'Lunch', name: 'Spiced Lentil Kale Salad', image: ybowl },
+      { type: 'Dinner', name: 'Roasted Veggie Tahini Bowl', image: xbowl },
+    ],
+  },
+  {
+    day: 'Thursday',
+    subtitle: 'Thursday, Planned Meals',
+    meals: [
+      { type: 'Breakfast', name: 'Avocado Poached Egg Bowl', image: heroImg },
+      { type: 'Lunch', name: 'Lemon Herb Chickpea Bowl', image: bbowl },
+      { type: 'Dinner', name: 'Sesame Ginger Tofu Bowl', image: cbowl },
+    ],
+  },
+  {
+    day: 'Friday',
+    subtitle: 'Friday, Planned Meals',
+    meals: [
+      { type: 'Breakfast', name: 'Greek Yogurt Crunch Bowl', image: xbowl },
+      { type: 'Lunch', name: 'Rainbow Buddha Bowl', image: ybowl },
+      { type: 'Dinner', name: 'Warm Grain & Herb Bowl', image: zbowl },
+    ],
+  },
+  {
+    day: 'Saturday',
+    subtitle: 'Saturday, Planned Meals',
+    meals: [
+      { type: 'Breakfast', name: 'Protein Berry Boost Bowl', image: cbowl },
+      { type: 'Lunch', name: 'Smoked Salmon Citrus Bowl', image: heroImg },
+      { type: 'Dinner', name: 'Garden Harvest Green Bowl', image: bbowl },
+    ],
+  },
+  {
+    day: 'Sunday',
+    subtitle: 'Sunday, Planned Meals',
+    meals: [
+      { type: 'Breakfast', name: 'Overnight Oats Supreme Bowl', image: zbowl },
+      { type: 'Lunch', name: 'Golden Roasted Vegetable Bowl', image: xbowl },
+      { type: 'Dinner', name: 'Mediterranean Herb Bowl', image: ybowl },
+    ],
+  },
+];
+
 function Home() {
+  const [dayIndex, setDayIndex] = useState(0);
+
+  const handlePrevDay = () => {
+    setDayIndex((prev) => (prev === 0 ? DAYS_SCHEDULE.length - 1 : prev - 1));
+  };
+
+  const handleNextDay = () => {
+    setDayIndex((prev) => (prev === DAYS_SCHEDULE.length - 1 ? 0 : prev + 1));
+  };
+
+  const currentSchedule = DAYS_SCHEDULE[dayIndex];
+
   return (
     <section id="home-page" className="home-page">
       {/* Hero Section */}
@@ -117,38 +196,40 @@ function Home() {
             <div className="header">
               <div className="dateInfo">
                 <span className="dayTitle">Today's Schedule</span>
-                <span className="dayText">Monday, Planned Meals</span>
+                <span className="dayText">{currentSchedule.subtitle}</span>
               </div>
 
-              <div className="dateNav">
-                <span className="day">Monday</span>
+              <div className="dateNav" role="group" aria-label="Cycle schedule days">
+                <button
+                  type="button"
+                  className="dayNavBtn"
+                  onClick={handlePrevDay}
+                  aria-label="Previous day"
+                >
+                  ‹
+                </button>
+                <span className="day">{currentSchedule.day}</span>
+                <button
+                  type="button"
+                  className="dayNavBtn"
+                  onClick={handleNextDay}
+                  aria-label="Next day"
+                >
+                  ›
+                </button>
               </div>
             </div>
 
             <div className="mealList">
-              <div className="mealItem">
-                <div className="mealCircle">
-                  <img src={ybowl} alt="Breakfast" />
+              {currentSchedule.meals.map((meal) => (
+                <div key={meal.type} className="mealItem">
+                  <div className="mealCircle">
+                    <img src={meal.image} alt={meal.type} />
+                  </div>
+                  <h5>{meal.type}</h5>
+                  <p>{meal.name}</p>
                 </div>
-                <h5>Breakfast</h5>
-                <p>Grilled Chicken Mediterranean Bowl</p>
-              </div>
-
-              <div className="mealItem">
-                <div className="mealCircle">
-                  <img src={zbowl} alt="Lunch" />
-                </div>
-                <h5>Lunch</h5>
-                <p>Tuna Mango Poke Bowl</p>
-              </div>
-
-              <div className="mealItem">
-                <div className="mealCircle">
-                  <img src={xbowl} alt="Dinner" />
-                </div>
-                <h5>Dinner</h5>
-                <p>Mediterranean Falafel Bowl</p>
-              </div>
+              ))}
             </div>
           </div>
         </div>
