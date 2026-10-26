@@ -1,5 +1,5 @@
 import './Footer.css';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import potLogo from '../../assets/pot.svg';
 
 function Footer() {
