@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import './Dashboard.css';
+import BMICalculator from "../../components/BMICalculator/BMICalculator";
 
 function Dashboard() {
   return (
@@ -52,29 +53,7 @@ function Dashboard() {
 
 
  
-          <div className="summary-card bmi-card">
-
-            <div className="summary-icon">
-              ⚖️
-            </div>
-
-            <div className="summary-content">
-
-              <h3>BMI</h3>
-
-              <div className="summary-number">
-                22.5
-              </div>
-
-              <p className="bmi-normal">Normal</p>
-
-              <div className="progress-bar">
-                <div className="progress bmi-progress"></div>
-              </div>
-
-            </div>
-
-          </div>
+          <BMICalculator />
 
 
 
