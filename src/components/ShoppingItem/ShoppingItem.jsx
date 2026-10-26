@@ -1,37 +1,64 @@
 import React from 'react';
 import './ShoppingItem.css';
 
-const ShoppingItem = ({ item, onUpdateQty }) => {
+/**
+ * ShoppingItem Component (Modules 49-54 Shopping Cart Item)
+ * Represents an individual interactive grocery item.
+ */
+const ShoppingItem = ({ item, onTogglePurchased, onUpdateQty, onDelete }) => {
   return (
-    <div className="list-row">
-      
-      {/* Icon and Name block */}
-      <div className="row-item-info">
-        <div className="row-icon">{item.image}</div>
-        <div className="row-text">
-          <h4>{item.name}</h4>
-          <p>{item.store}</p>
+    <div className={`shopping-item-row ${item.purchased ? 'item-purchased' : ''}`}>
+      <label className="checkbox-container" title={item.purchased ? 'Mark as to-buy' : 'Mark as purchased'}>
+        <input
+          type="checkbox"
+          checked={item.purchased}
+          onChange={onTogglePurchased}
+          className="item-checkbox"
+        />
+        <span className="custom-checkmark"></span>
+      </label>
+
+      <div className="item-icon-wrapper">{item.image || '🛒'}</div>
+
+      <div className="item-meta-info">
+        <h4 className={`item-name ${item.purchased ? 'strike' : ''}`}>{item.name}</h4>
+        <div className="item-tags">
+          <span className="category-tag">{item.category}</span>
+          {item.store && <span className="store-tag">{item.store}</span>}
         </div>
       </div>
 
-      {/* Price per unit */}
-      <div className="row-price-unit">
-        ${item.price.toFixed(2)} per Unit
+      <div className="item-unit-price">₹{Number(item.price).toFixed(2)} / ea</div>
+
+      <div className="item-qty-controls">
+        <button
+          className="qty-btn"
+          onClick={() => onUpdateQty(-1)}
+          disabled={item.qty <= 1}
+          aria-label="Decrease quantity"
+        >
+          −
+        </button>
+        <span className="qty-value">{item.qty}</span>
+        <button
+          className="qty-btn"
+          onClick={() => onUpdateQty(1)}
+          aria-label="Increase quantity"
+        >
+          +
+        </button>
       </div>
 
-      {/* The pill counter */}
-      <div className="row-counter">
-        <button onClick={() => onUpdateQty(-1)}>-</button>
-        <span>{item.qty}</span>
-        <button onClick={() => onUpdateQty(1)}>+</button>
-      </div>
+      <div className="item-subtotal">₹{(item.price * item.qty).toFixed(2)}</div>
 
-      {/* Total Price and menu */}
-      <div className="row-total">
-        ${(item.price * item.qty).toFixed(2)}
-      </div>
-      <div className="row-menu">⋮</div>
-
+      <button
+        className="item-remove-btn"
+        onClick={onDelete}
+        title="Remove item"
+        aria-label={`Remove ${item.name}`}
+      >
+        &times;
+      </button>
     </div>
   );
 };

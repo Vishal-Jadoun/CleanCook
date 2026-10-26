@@ -52,7 +52,6 @@ function loadWaterGoal() {
 }
 
 
-
 function WaterTracker() {
   const [glasses, setGlasses] = useState(loadWaterCount);
   const [storageError, setStorageError] = useState("");
@@ -71,7 +70,7 @@ function WaterTracker() {
     }
   }, [glasses]);
 
-  // Example goal for the project demo.
+  // Load the user's saved water goal from their profile (defaults to 8).
   const [goal] = useState(loadWaterGoal);
   const progress = Math.min((glasses / goal) * 100, 100);
 

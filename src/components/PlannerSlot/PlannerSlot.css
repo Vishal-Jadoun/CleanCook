@@ -1,59 +1,313 @@
-.planner-slot-overlay {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.5);
+.planner-slot-wrapper {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  border: 1px solid #f0edf5;
+}
+
+.slot-card-header {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.slot-day-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #2b253d;
+  margin: 0 0 4px;
+}
+
+.slot-day-subtitle {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.slot-clear-day-btn {
+  background: #fef2f2;
+  color: #ef4444;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.slot-clear-day-btn:hover {
+  background: #fee2e2;
+}
+
+/* Slots Grid */
+.slots-grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.slot-box {
+  background: #fcfbfe;
+  border: 1.5px solid #f1edf7;
+  border-radius: 18px;
+  padding: 18px;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  min-height: 140px;
+}
+
+.slot-box:hover {
+  border-color: #d8b4fe;
+  background: #ffffff;
+  box-shadow: 0 4px 14px rgba(156, 39, 176, 0.06);
+}
+
+.slot-box.empty {
+  border-style: dashed;
+  background: #faf8fc;
+  justify-content: space-between;
+}
+
+.slot-box-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.slot-type-pill {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #4b5563;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.slot-icon {
+  font-size: 1.1rem;
+}
+
+.slot-box-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.slot-action-btn {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  align-items: center; /* Centered on screen */
-  z-index: 100;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
 }
 
-.planner-slot-modal {
-  background: white;
-  width: 90%;
-  max-width: 600px;
-  height: auto; /* Hugs the content, prevents scrolling */
-  max-height: 95vh;
-  border-radius: 30px;
-  padding: 30px;
-  box-sizing: border-box;
+.slot-action-btn:hover {
+  background: #f3f4f6;
+  transform: scale(1.05);
 }
 
-.slot-header {
-  display: flex; align-items: center; justify-content: space-between; margin-bottom: 25px;
+.slot-action-btn.delete:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
 }
 
-.back-btn {
-  background: none; border: 1px solid #eee; border-radius: 50%;
-  width: 40px; height: 40px; cursor: pointer; font-weight: bold;
+/* Slot Meal Content */
+.slot-meal-content {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  cursor: pointer;
 }
 
-.meal-list-item {
-  display: flex; align-items: center; padding: 12px 15px;
-  background: #f8f9fc; border-radius: 20px; margin-bottom: 10px;
+.slot-meal-thumb {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
-.meal-icon { font-size: 2rem; margin-right: 15px; }
-.meal-info { flex: 1; }
-.meal-info h4 { margin: 0; color: #222; font-size: 1rem; }
-.meal-info p { margin: 3px 0 0; color: #888; font-size: 0.85rem; }
-
-.daily-tracker { margin-top: 30px; text-align: center; }
-
-.tracker-circle {
-  width: 120px; height: 120px;
-  border: 8px solid #a855f7; border-radius: 50%;
-  display: flex; flex-direction: column; justify-content: center; align-items: center;
-  margin: 0 auto 20px;
+.slot-meal-info {
+  flex: 1;
+  min-width: 0;
 }
-.cal-count { font-size: 1.5rem; font-weight: bold; color: #111; }
-.cal-label { color: #888; font-size: 0.8rem; }
 
-.nutrient-bars { display: flex; justify-content: space-between; gap: 10px; }
-.nutrient {
-  flex: 1; padding: 10px; border-radius: 12px; font-size: 0.8rem;
-  font-weight: bold; color: #111; display: flex; flex-direction: column;
+.slot-meal-name {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.nutrient.carbs { background: #bbf7d0; } 
-.nutrient.fat { background: #bae6fd; }   
-.nutrient.protein { background: #fed7aa; } 
+
+.slot-macro-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.macro-tag {
+  font-size: 0.72rem;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.macro-tag.cal {
+  background: #fdf4ff;
+  color: #9333ea;
+}
+
+.macro-tag.pro {
+  background: #f0fdf4;
+  color: #16a34a;
+}
+
+.macro-tag.carb {
+  background: #fffbeb;
+  color: #d97706;
+}
+
+.macro-tag.fat {
+  background: #f0f9ff;
+  color: #0284c7;
+}
+
+/* Empty button */
+.add-meal-slot-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #9c27b0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: 10px;
+  padding: 12px;
+  transition: all 0.2s ease;
+}
+
+.add-meal-slot-btn:hover {
+  background: #f3e8ff;
+}
+
+.plus-sign {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* Daily Nutrition Tracker */
+.slot-tracker-card {
+  background: #faf8fc;
+  border: 1px solid #f0edf5;
+  border-radius: 18px;
+  padding: 20px;
+}
+
+.tracker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.tracker-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #2b253d;
+  margin: 0;
+}
+
+.tracker-target-hint {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.cal-progress-track {
+  width: 100%;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+
+.cal-progress-fill {
+  height: 100%;
+  background: var(--color-primary, #9c27b0);
+  border-radius: 10px;
+  transition: width 0.4s ease;
+}
+
+.macros-breakdown-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.macro-stat-box {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #f1f0f5;
+  display: flex;
+  flex-direction: column;
+}
+
+.macro-stat-box.protein {
+  border-top: 3px solid #10b981;
+}
+
+.macro-stat-box.carbs {
+  border-top: 3px solid #f59e0b;
+}
+
+.macro-stat-box.fat {
+  border-top: 3px solid #06b6d4;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+}
+
+.stat-value {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #1f2937;
+  margin: 3px 0;
+}
+
+.stat-sub {
+  font-size: 0.7rem;
+  color: #9ca3af;
+}
+
+@media (max-width: 768px) {
+  .slots-grid-container {
+    grid-template-columns: 1fr;
+  }
+}

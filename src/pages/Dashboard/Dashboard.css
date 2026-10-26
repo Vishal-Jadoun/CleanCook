@@ -57,6 +57,7 @@
     "water calculator";
   gap: 22px;
   margin-bottom: 24px;
+  align-items: stretch;
 }
 
 .dashboard .summary-cards > .calories-card {
@@ -258,6 +259,24 @@
   text-decoration: underline;
 }
 
+/* Keep the BMI calculator compact inside the bento grid */
+.dashboard .summary-cards .bmi-calculator h3 {
+  margin-top: 0;
+}
+
+.dashboard .summary-cards .bmi-calculator input {
+  min-width: 0;
+}
+
+.dashboard .summary-cards .bmi-calculator small {
+  display: block;
+  line-height: 1.5;
+}
+
+.dashboard .water-icons {
+  flex-wrap: wrap;
+}
+
 @media (max-width: 900px) {
   .dashboard .nutrition-container,
   .dashboard .bottom-section {
@@ -276,6 +295,12 @@
       "calories"
       "water"
       "calculator";
+    gap: 16px;
+  }
+
+  .dashboard .summary-cards > .summary-card,
+  .dashboard .summary-cards > .bmi-calculator {
+    padding: 20px;
   }
 
   .dashboard .dashboard-header {

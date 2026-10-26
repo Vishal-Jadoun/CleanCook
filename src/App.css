@@ -1,6 +1,13 @@
 #main-content {
-  min-height: calc(100vh - 160px); /* Ensures the footer stays at the bottom even if the page is empty */
-  max-width: 1200px; /* Keeps the website from stretching too wide on big screens */
-  margin: 0 auto; /* Centers the content */
-  padding: 24px; /* Gives some breathing room around the edges */
+  min-height: calc(100vh - 180px);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 40px 60px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  #main-content {
+    padding: 20px 16px 40px;
+  }
 }

@@ -21,8 +21,8 @@ function loadMeasurements() {
 function BMICalculator() {
   const [savedMeasurements] = useState(loadMeasurements);
 
-const [height, setHeight] = useState(savedMeasurements.height);
-const [weight, setWeight] = useState(savedMeasurements.weight);
+  const [height, setHeight] = useState(savedMeasurements.height);
+  const [weight, setWeight] = useState(savedMeasurements.weight);
   const [bmi, setBmi] = useState("");
   const [error, setError] = useState("");
 
