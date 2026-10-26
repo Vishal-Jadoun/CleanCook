@@ -1,32 +1,79 @@
-.day-column {
-  flex: 1; /* This tells every day card to stretch and fill the empty space equally */
-  min-width: 100px; /* Prevents them from getting too squished on small screens */
+.day-column-btn {
+  flex: 1;
+  min-width: 110px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 25px 10px; /* Made the buttons taller so they look proportional on a wide screen */
-  background: white;
-  border: none;
-  border-radius: 25px;
+  padding: 18px 12px;
+  background: #ffffff;
+  border: 1.5px solid #f0edf5;
+  border-radius: 20px;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: center;
+  outline: none;
 }
 
-.day-column.active {
-  background: #333;
-  color: white;
-  transform: translateY(-8px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+.day-column-btn:hover {
+  transform: translateY(-4px);
+  border-color: #d8b4fe;
+  box-shadow: 0 8px 20px rgba(156, 39, 176, 0.1);
 }
 
-.day-abbr {
-  font-weight: bold;
-  font-size: 1.5rem; /* Larger text for wider cards */
+.day-column-btn.active {
+  background: #2b253d;
+  color: #ffffff;
+  border-color: #2b253d;
+  transform: translateY(-6px);
+  box-shadow: 0 10px 24px rgba(43, 37, 61, 0.25);
 }
 
-.day-full {
-  font-size: 0.9rem;
-  opacity: 0.7;
-  margin-top: 8px;
+.day-abbr-text {
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: -0.5px;
+}
+
+.day-full-text {
+  font-size: 0.8rem;
+  opacity: 0.65;
+  margin-top: 2px;
+  font-weight: 500;
+}
+
+.day-calorie-indicator {
+  font-size: 0.76rem;
+  font-weight: 700;
+  margin-top: 10px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  background: #f7f4fa;
+  color: #7b1fa2;
+}
+
+.day-column-btn.active .day-calorie-indicator {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.day-dots-container {
+  display: flex;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.meal-indicator-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #e2e8f0;
+}
+
+.meal-indicator-dot.filled {
+  background: #10b981;
+}
+
+.day-column-btn.active .meal-indicator-dot.filled {
+  background: #34d399;
 }

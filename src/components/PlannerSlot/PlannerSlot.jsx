@@ -1,52 +1,192 @@
 import React from 'react';
+import { usePlanner } from '../../context/PlannerContext';
 import './PlannerSlot.css';
 
-const PlannerSlot = ({ dayName, dayData, onClose }) => {
+const SLOTS = [
+  { key: 'breakfast', label: 'Breakfast', icon: '🍞' },
+  { key: 'lunch', label: 'Lunch', icon: '🥗' },
+  { key: 'dinner', label: 'Dinner', icon: '🍲' },
+  { key: 'snack', label: 'Snack', icon: '🍎' }
+];
+
+/**
+ * PlannerSlot Component (Modules 49-54 State Management, 61-66 UI Actions)
+ * Renders the day's meals, slot actions, macro tracker, and integration with MealCard & Shopping.
+ */
+const PlannerSlot = ({
+  dayName,
+  dayData,
+  onOpenPicker,
+  onOpenAddModal,
+  onOpenMealCard,
+  onExportIngredients
+}) => {
+  const { setMeal, removeMeal, clearDay } = usePlanner();
+  const meals = dayData.meals || {};
+  const nutrients = dayData.totalNutrients || { calories: 0, protein: 0, fat: 0, carbs: 0 };
+
+  // HTML5 Drag and Drop handler (HAR-P31)
+  const handleDragStart = (e, slotKey, meal) => {
+    e.dataTransfer.setData('application/json', JSON.stringify({ fromSlot: slotKey, meal }));
+    e.dataTransfer.effectAllowed = 'move';
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  };
+
+  const handleDrop = (e, targetSlot) => {
+    e.preventDefault();
+    try {
+      const dataStr = e.dataTransfer.getData('application/json');
+      if (!dataStr) return;
+      const { fromSlot, meal } = JSON.parse(dataStr);
+      if (fromSlot && meal && fromSlot !== targetSlot) {
+        setMeal(dayName, targetSlot, meal);
+        removeMeal(dayName, fromSlot);
+      }
+    } catch {
+      // ignore invalid drag payloads
+    }
+  };
+
+  // Calorie Target Progress (e.g. 2000 kcal target)
+  const targetCals = 2000;
+  const calPercent = Math.min(100, Math.round((nutrients.calories / targetCals) * 100));
+
   return (
-    <div className="planner-slot-overlay">
-      <div className="planner-slot-modal">
-        
-        <div className="slot-header">
-          <button className="back-btn" onClick={onClose}>&lt;</button>
-          <h2>{dayName}'s Plan</h2>
-          <div className="spacer"></div>
+    <div className="planner-slot-wrapper">
+      {/* Header */}
+      <div className="slot-card-header">
+        <div>
+          <h2 className="slot-day-title">{dayName}'s Menu</h2>
+          <p className="slot-day-subtitle">Assigned meal slots, drag-to-reschedule, and macronutrient breakdown.</p>
         </div>
 
-        <div className="daily-meals">
-          <h3>Daily meals</h3>
-          {['breakfast', 'lunch', 'dinner'].map((mealKey) => {
-            const meal = dayData.meals ? dayData.meals[mealKey] : null;
-            return (
-              <div 
-                key={mealKey} 
-                className={`meal-list-item ${!meal ? 'empty' : ''}`}
-              >
-                <div className="meal-icon">
-                  {mealKey === 'breakfast' ? '🍞' : mealKey === 'lunch' ? '🥗' : '🍲'}
-                </div>
-                <div className="meal-info">
-                  <h4>{mealKey.charAt(0).toUpperCase() + mealKey.slice(1)}</h4>
-                  <p>{meal ? meal.name : `Add ${mealKey}...`}</p>
-                </div>
+        <button
+          className="slot-clear-day-btn"
+          onClick={() => clearDay(dayName)}
+          title={`Clear all meals for ${dayName}`}
+        >
+          Clear Day
+        </button>
+      </div>
+
+      {/* Slots Grid */}
+      <div className="slots-grid-container">
+        {SLOTS.map(({ key, label, icon }) => {
+          const meal = meals[key];
+          return (
+            <div
+              key={key}
+              className={`slot-box ${meal ? 'filled' : 'empty'}`}
+              onDragOver={handleDragOver}
+              onDrop={(e) => handleDrop(e, key)}
+            >
+              <div className="slot-box-top">
+                <span className="slot-type-pill">
+                  <span className="slot-icon">{icon}</span> {label}
+                </span>
+
+                {meal && (
+                  <div className="slot-box-actions">
+                    <button
+                      className="slot-action-btn"
+                      title="View Meal Details"
+                      onClick={() => onOpenMealCard(meal)}
+                    >
+                      👁️
+                    </button>
+                    <button
+                      className="slot-action-btn cart"
+                      title="Export ingredients to Shopping Cart"
+                      onClick={() => onExportIngredients(meal)}
+                    >
+                      🛒
+                    </button>
+                    <button
+                      className="slot-action-btn delete"
+                      title="Remove meal"
+                      onClick={() => removeMeal(dayName, key)}
+                    >
+                      🗑️
+                    </button>
+                  </div>
+                )}
               </div>
-            );
-          })}
+
+              {meal ? (
+                <div
+                  className="slot-meal-content"
+                  draggable="true"
+                  onDragStart={(e) => handleDragStart(e, key, meal)}
+                  onClick={() => onOpenMealCard(meal)}
+                  title="Drag meal to another slot to reschedule"
+                >
+                  {meal.image && (
+                    <img src={meal.image} alt={meal.name} className="slot-meal-thumb" />
+                  )}
+                  <div className="slot-meal-info">
+                    <h4 className="slot-meal-name">{meal.name}</h4>
+                    <div className="slot-macro-tags">
+                      <span className="macro-tag cal">🔥 {meal.calories} kcal</span>
+                      <span className="macro-tag pro">P: {meal.protein}g</span>
+                      <span className="macro-tag carb">C: {meal.carbs}g</span>
+                      <span className="macro-tag fat">F: {meal.fat}g</span>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  className="add-meal-slot-btn"
+                  onClick={() => (onOpenPicker ? onOpenPicker(key) : onOpenAddModal(key))}
+                >
+                  <span className="plus-sign">+</span> Plan {label}
+                </button>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Macronutrient Tracker Bar */}
+      <div className="slot-tracker-card">
+        <div className="tracker-header">
+          <h4 className="tracker-title">Daily Nutrition Tracker</h4>
+          <span className="tracker-target-hint">
+            {nutrients.calories} / {targetCals} kcal ({calPercent}%)
+          </span>
         </div>
 
-        {dayData.totalNutrients && (
-          <div className="daily-tracker">
-            <div className="tracker-circle">
-              <span className="cal-count">{dayData.totalNutrients.calories}</span>
-              <span className="cal-label">Kcal</span>
-            </div>
-            <div className="nutrient-bars">
-              <div className="nutrient carbs">Carbs {dayData.totalNutrients.carbs}g</div>
-              <div className="nutrient fat">Fat {dayData.totalNutrients.fat}g</div>
-              <div className="nutrient protein">Protein {dayData.totalNutrients.protein}g</div>
-            </div>
-          </div>
-        )}
+        {/* Progress Bar */}
+        <div className="cal-progress-track">
+          <div
+            className="cal-progress-fill"
+            style={{ width: `${calPercent}%` }}
+          ></div>
+        </div>
 
+        <div className="macros-breakdown-row">
+          <div className="macro-stat-box protein">
+            <span className="stat-label">Protein</span>
+            <span className="stat-value">{nutrients.protein}g</span>
+            <span className="stat-sub">Target: 120g</span>
+          </div>
+
+          <div className="macro-stat-box carbs">
+            <span className="stat-label">Carbs</span>
+            <span className="stat-value">{nutrients.carbs}g</span>
+            <span className="stat-sub">Target: 220g</span>
+          </div>
+
+          <div className="macro-stat-box fat">
+            <span className="stat-label">Fat</span>
+            <span className="stat-value">{nutrients.fat}g</span>
+            <span className="stat-sub">Target: 65g</span>
+          </div>
+        </div>
       </div>
     </div>
   );
