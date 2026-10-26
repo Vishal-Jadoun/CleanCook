@@ -13,6 +13,10 @@
   --color-text: #2b253d; /* Dark Text */
   --color-text-light: #6c757d;
   --color-border: #e0e0e0;
+  --color-border-light: #ede7f6;
+  --color-primary-soft: rgba(156, 39, 176, 0.08);
+  --color-success-bg: #e8f5e9;
+  --color-success-text: #2e7d32;
 
   /* Typography */
   --font-main: 'Inter', 'Segoe UI', sans-serif;

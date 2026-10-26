@@ -13,18 +13,15 @@ function Navbar() {
         </Link>
 
         <ul className='navbarLinks'>
-
-          <li><NavLink to="" className="navItem">Home</NavLink></li>
-          <li><NavLink to="/recipes" className="navItem">Recipe</NavLink></li>
+          <li><NavLink to="/" end className="navItem">Home</NavLink></li>
+          <li><NavLink to="/recipes" className="navItem">Recipes</NavLink></li>
           <li><NavLink to="/planner" className="navItem">Planner</NavLink></li>
           <li><NavLink to="/shopping" className="navItem">Shopping</NavLink></li>
-          {/* <li><NavLink to="/dashboard" className="navItem">Dashboard</NavLink></li> */}
-
         </ul>
 
         <div className='navbarActions'>
-          {/* <Link to="/login" className='loginBtn'>Login</Link>  login and singup will be added in section evaluation  */}
-          <Link to="/dashboard" className='profileBtn'>
+          <Link to="/login" className='loginBtn'>Login</Link>
+          <Link to="/dashboard" className='profileBtn' aria-label="Profile">
             <img src={userIcon} alt="Profile" className='profileSvg' />
           </Link>
         </div>
