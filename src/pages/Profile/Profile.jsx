@@ -1,66 +1,151 @@
-import React, { useState } from 'react';
-import './Profile.css';
+import { useState } from "react";
+import "./Profile.css";
+
+const STORAGE_KEY = "cleancook-profile";
+
+const defaultProfile = {
+  name: "Aditya Bansal",
+  email: "aditya@example.com",
+  memberSince: "August 2026",
+  age: "21",
+  height: "175",
+  weight: "68",
+  activityLevel: "Moderate (3-4 days/week)",
+  dailyCalories: "2000",
+  waterGoal: "8",
+  weightGoal: "65",
+};
+
+// Read previously saved details when the page opens.
+function loadProfile() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+
+    if (saved === null) {
+      return { ...defaultProfile };
+    }
+
+    const data = JSON.parse(saved);
+    const profile = { ...defaultProfile };
+
+    // Only load recognised fields containing text.
+    for (const key of Object.keys(defaultProfile)) {
+      if (data !== null && typeof data[key] === "string") {
+        profile[key] = data[key];
+      }
+    }
+
+    return profile;
+  } catch {
+    return { ...defaultProfile };
+  }
+}
+
+// These arrays describe the fields displayed in the form.
+const personalFields = [
+  { name: "name", label: "Full Name", type: "text", unit: "" },
+  { name: "email", label: "Email Address", type: "email", unit: "" },
+  { name: "age", label: "Age", type: "number", unit: "years" },
+  { name: "height", label: "Height (cm)", type: "number", unit: "cm" },
+  { name: "weight", label: "Weight (kg)", type: "number", unit: "kg" },
+];
+
+const goalFields = [
+  {
+    name: "dailyCalories",
+    label: "🔥 Daily Calorie Target",
+    unit: "kcal",
+    color: "highlight-purple",
+  },
+  {
+    name: "waterGoal",
+    label: "💧 Daily Water Goal",
+    unit: "glasses",
+    color: "highlight-teal",
+  },
+  {
+    name: "weightGoal",
+    label: "⚖️ Target Weight",
+    unit: "kg",
+    color: "highlight-green",
+  },
+];
 
 function Profile() {
-  // ================= STATE =================
-  // State to toggle between View mode and Edit mode
   const [isEditing, setIsEditing] = useState(false);
-
-  // User Profile Data (Dummy Data for Eval 1)
-  const [profileData, setProfileData] = useState({
-    name: 'Aditya Jadoun',
-    email: 'aditya@example.com',
-    memberSince: 'August 2026',
-    age: '21',
-    height: '175',
-    weight: '68',
-    activityLevel: 'Moderate (3-4 days/week)',
-    dailyCalories: '2000',
-    waterGoal: '8',
-    weightGoal: '65',
-  });
-
-  // Temporary state for editing so changes can be saved or cancelled
+  const [profileData, setProfileData] = useState(loadProfile);
   const [formData, setFormData] = useState({ ...profileData });
+  const [message, setMessage] = useState("");
 
-  // ================= HANDLERS =================
-  // Handle input changes when in edit mode
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
+  function handleEdit() {
+    setFormData({ ...profileData });
+    setMessage("");
+    setIsEditing(true);
+  }
+
+  function handleChange(event) {
+    const { name, value } = event.target;
+
+    setFormData((previous) => ({
+      ...previous,
       [name]: value,
     }));
-  };
+  }
 
-  // Save updated info and exit edit mode
-  const handleSave = (e) => {
-    e.preventDefault();
-    setProfileData({ ...formData });
-    setIsEditing(false);
-  };
+  function handleSave(event) {
+    event.preventDefault();
 
-  // Cancel edits and revert form data back to saved profile data
-  const handleCancel = () => {
+    if (!isEditing) {
+      return;
+    }
+
+    if (formData.name.trim() === "") {
+      setMessage("Please enter your name.");
+      return;
+    }
+
+    const updatedProfile = {
+      ...formData,
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+    };
+
+    try {
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(updatedProfile)
+      );
+
+      setProfileData(updatedProfile);
+      setFormData({ ...updatedProfile });
+      setIsEditing(false);
+      setMessage("Profile saved in this browser.");
+    } catch {
+      setMessage(
+        "Your browser could not save the profile. Your edits are still here."
+      );
+    }
+  }
+
+  function handleCancel() {
     setFormData({ ...profileData });
     setIsEditing(false);
-  };
+    setMessage("");
+  }
 
   return (
     <section id="profile-page" className="profile-page">
       <div className="profile-container">
-
-        {/* ================= 1. PROFILE HEADER CARD ================= */}
         <div className="profile-header-card">
           <div className="profile-header-left">
-            {/* Avatar Circle with Initial */}
             <div className="profile-avatar" id="profile-avatar">
-              {profileData.name.charAt(0)}
+              {profileData.name.charAt(0).toUpperCase()}
             </div>
 
             <div className="profile-header-info">
               <h1 id="profile-name-display">{profileData.name}</h1>
               <p className="profile-email">{profileData.email}</p>
+
               <span className="profile-badge">
                 📅 Member since {profileData.memberSince}
               </span>
@@ -73,20 +158,21 @@ function Profile() {
                 type="button"
                 id="btn-edit-profile"
                 className="btn-edit"
-                onClick={() => setIsEditing(true)}
+                onClick={handleEdit}
               >
                 ✏️ Edit Profile
               </button>
             ) : (
               <div className="edit-btn-group">
                 <button
-                  type="button"
+                  type="submit"
+                  form="profile-form"
                   id="btn-save-profile"
                   className="btn-save"
-                  onClick={handleSave}
                 >
                   ✓ Save
                 </button>
+
                 <button
                   type="button"
                   id="btn-cancel-profile"
@@ -100,10 +186,9 @@ function Profile() {
           </div>
         </div>
 
-        {/* Form wrapper for editable fields */}
-        <form onSubmit={handleSave}>
-          
-          {/* ================= 2. PERSONAL INFORMATION ================= */}
+        {message && <p role="status">{message}</p>}
+
+        <form id="profile-form" onSubmit={handleSave}>
           <div className="profile-section-card">
             <div className="section-header">
               <h2>👤 Personal Information</h2>
@@ -111,175 +196,105 @@ function Profile() {
             </div>
 
             <div className="info-grid">
-              {/* Full Name */}
-              <div className="info-item">
-                <label htmlFor="profile-name-input">Full Name</label>
-                {isEditing ? (
-                  <input
-                    type="text"
-                    id="profile-name-input"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                  />
-                ) : (
-                  <p className="info-value">{profileData.name}</p>
-                )}
-              </div>
+              {personalFields.map((field) => (
+                <div className="info-item" key={field.name}>
+                  <label htmlFor={`profile-${field.name}`}>
+                    {field.label}
+                  </label>
 
-              {/* Email */}
-              <div className="info-item">
-                <label htmlFor="profile-email-input">Email Address</label>
-                {isEditing ? (
-                  <input
-                    type="email"
-                    id="profile-email-input"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                  />
-                ) : (
-                  <p className="info-value">{profileData.email}</p>
-                )}
-              </div>
+                  {isEditing ? (
+                    <input
+                      id={`profile-${field.name}`}
+                      name={field.name}
+                      type={field.type}
+                      value={formData[field.name]}
+                      onChange={handleChange}
+                      min={field.type === "number" ? "1" : undefined}
+                      step={field.name === "age" ? "1" : "any"}
+                      required
+                    />
+                  ) : (
+                    <p className="info-value">
+                      {profileData[field.name]} {field.unit}
+                    </p>
+                  )}
+                </div>
+              ))}
 
-              {/* Age */}
               <div className="info-item">
-                <label htmlFor="profile-age-input">Age</label>
-                {isEditing ? (
-                  <input
-                    type="number"
-                    id="profile-age-input"
-                    name="age"
-                    value={formData.age}
-                    onChange={handleChange}
-                  />
-                ) : (
-                  <p className="info-value">{profileData.age} years</p>
-                )}
-              </div>
+                <label htmlFor="profile-activity">Activity Level</label>
 
-              {/* Height */}
-              <div className="info-item">
-                <label htmlFor="profile-height-input">Height (cm)</label>
-                {isEditing ? (
-                  <input
-                    type="number"
-                    id="profile-height-input"
-                    name="height"
-                    value={formData.height}
-                    onChange={handleChange}
-                  />
-                ) : (
-                  <p className="info-value">{profileData.height} cm</p>
-                )}
-              </div>
-
-              {/* Weight */}
-              <div className="info-item">
-                <label htmlFor="profile-weight-input">Weight (kg)</label>
-                {isEditing ? (
-                  <input
-                    type="number"
-                    id="profile-weight-input"
-                    name="weight"
-                    value={formData.weight}
-                    onChange={handleChange}
-                  />
-                ) : (
-                  <p className="info-value">{profileData.weight} kg</p>
-                )}
-              </div>
-
-              {/* Activity Level */}
-              <div className="info-item">
-                <label htmlFor="profile-activity-input">Activity Level</label>
                 {isEditing ? (
                   <select
-                    id="profile-activity-input"
+                    id="profile-activity"
                     name="activityLevel"
                     value={formData.activityLevel}
                     onChange={handleChange}
                   >
-                    <option value="Sedentary (Little to no exercise)">Sedentary</option>
-                    <option value="Light (1-2 days/week)">Light (1-2 days/week)</option>
-                    <option value="Moderate (3-4 days/week)">Moderate (3-4 days/week)</option>
-                    <option value="Very Active (5+ days/week)">Very Active (5+ days/week)</option>
+                    <option value="Sedentary (Little to no exercise)">
+                      Sedentary
+                    </option>
+                    <option value="Light (1-2 days/week)">
+                      Light (1-2 days/week)
+                    </option>
+                    <option value="Moderate (3-4 days/week)">
+                      Moderate (3-4 days/week)
+                    </option>
+                    <option value="Very Active (5+ days/week)">
+                      Very Active (5+ days/week)
+                    </option>
                   </select>
                 ) : (
-                  <p className="info-value">{profileData.activityLevel}</p>
+                  <p className="info-value">
+                    {profileData.activityLevel}
+                  </p>
                 )}
               </div>
             </div>
           </div>
 
-          {/* ================= 3. HEALTH & NUTRITION GOALS ================= */}
           <div className="profile-section-card">
             <div className="section-header">
               <h2>🎯 Health & Nutrition Goals</h2>
-              <p>Daily targets to stay fit and energized</p>
+              <p>Your personal daily targets</p>
             </div>
 
             <div className="info-grid goals-grid">
-              {/* Daily Calories */}
-              <div className="info-item goal-item">
-                <label htmlFor="profile-calories-input">🔥 Daily Calorie Target</label>
-                {isEditing ? (
-                  <input
-                    type="number"
-                    id="profile-calories-input"
-                    name="dailyCalories"
-                    value={formData.dailyCalories}
-                    onChange={handleChange}
-                  />
-                ) : (
-                  <p className="info-value highlight-purple">{profileData.dailyCalories} kcal</p>
-                )}
-              </div>
+              {goalFields.map((field) => (
+                <div
+                  className="info-item goal-item"
+                  key={field.name}
+                >
+                  <label htmlFor={`profile-${field.name}`}>
+                    {field.label}
+                  </label>
 
-              {/* Daily Water */}
-              <div className="info-item goal-item">
-                <label htmlFor="profile-water-input">💧 Daily Water Goal</label>
-                {isEditing ? (
-                  <input
-                    type="number"
-                    id="profile-water-input"
-                    name="waterGoal"
-                    value={formData.waterGoal}
-                    onChange={handleChange}
-                  />
-                ) : (
-                  <p className="info-value highlight-teal">{profileData.waterGoal} glasses</p>
-                )}
-              </div>
-
-              {/* Target Weight */}
-              <div className="info-item goal-item">
-                <label htmlFor="profile-weight-goal-input">⚖️ Target Weight</label>
-                {isEditing ? (
-                  <input
-                    type="number"
-                    id="profile-weight-goal-input"
-                    name="weightGoal"
-                    value={formData.weightGoal}
-                    onChange={handleChange}
-                  />
-                ) : (
-                  <p className="info-value highlight-green">{profileData.weightGoal} kg</p>
-                )}
-              </div>
+                  {isEditing ? (
+                    <input
+                      id={`profile-${field.name}`}
+                      type="number"
+                      name={field.name}
+                      value={formData[field.name]}
+                      onChange={handleChange}
+                      min="1"
+                      step={field.name === "weightGoal" ? "any" : "1"}
+                      required
+                    />
+                  ) : (
+                    <p className={`info-value ${field.color}`}>
+                      {profileData[field.name]} {field.unit}
+                    </p>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
-
         </form>
 
-        {/* ================= 4. ACCOUNT SETTINGS ================= */}
         <div className="profile-section-card settings-card">
           <div className="section-header">
             <h2>⚙️ Account Settings</h2>
-            <p>Manage your account preferences and security</p>
+            <p>Account actions are placeholders in this demo.</p>
           </div>
 
           <div className="settings-actions">
@@ -287,7 +302,9 @@ function Profile() {
               type="button"
               id="btn-change-password"
               className="btn-setting btn-outline"
-              onClick={() => alert('Change password modal/flow (Prototype)')}
+              onClick={() =>
+                setMessage("Password changes need backend authentication.")
+              }
             >
               🔒 Change Password
             </button>
@@ -296,7 +313,9 @@ function Profile() {
               type="button"
               id="btn-logout"
               className="btn-setting btn-outline"
-              onClick={() => alert('Logged out successfully (Prototype)')}
+              onClick={() =>
+                setMessage("This demo has no authenticated login session.")
+              }
             >
               🚪 Log Out
             </button>
@@ -305,13 +324,14 @@ function Profile() {
               type="button"
               id="btn-delete-account"
               className="btn-setting btn-danger"
-              onClick={() => alert('Delete account confirmation (Prototype)')}
+              onClick={() =>
+                setMessage("Account deletion is not connected in this demo.")
+              }
             >
               🗑️ Delete Account
             </button>
           </div>
         </div>
-
       </div>
     </section>
   );
