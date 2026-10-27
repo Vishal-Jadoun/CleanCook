@@ -1,62 +1,101 @@
-import './NutritionWidget.css';
+import { Link } from "react-router-dom";
+import "./NutritionWidget.css";
 
-function NutritionWidget() {
+const defaultNutrition = {
+  calories: 1450,
+  protein: 85,
+  carbs: 180,
+  fat: 45,
+};
+
+const defaultTargets = {
+  calories: 2000,
+  protein: 120,
+  carbs: 250,
+  fat: 65,
+};
+
+function NutritionWidget({
+  nutrition = defaultNutrition,
+  targets = defaultTargets,
+  isSample = true,
+}) {
+  const currentNutrition = { ...defaultNutrition, ...nutrition };
+  const currentTargets = { ...defaultTargets, ...targets };
+
+  const nutrients = [
+    {
+      name: "Protein",
+      value: currentNutrition.protein,
+      goal: currentTargets.protein,
+      icon: "🍗",
+      color: "#8245d2",
+    },
+    {
+      name: "Carbs",
+      value: currentNutrition.carbs,
+      goal: currentTargets.carbs,
+      icon: "🍞",
+      color: "#d47b13",
+    },
+    {
+      name: "Fat",
+      value: currentNutrition.fat,
+      goal: currentTargets.fat,
+      icon: "🥑",
+      color: "#d54d78",
+    },
+  ];
+
   return (
-    <div className="nutrition-widget">
-      {/* Header */}
-      <div className="nutrition-header">
-        <div className="nutrition-icon">
-          🥗
-        </div>
-        <div className="nutrition-title">
-          <h3>Daily Nutrition</h3>
-          <p>Track your calories &amp; macros</p>
-        </div>
+    <section className="nutrition-section">
+      <div className="section-title">
+        <h2>Nutrition {isSample ? "— Sample Day" : "Overview"}</h2>
+        <Link to="/planner">Open planner</Link>
       </div>
-      {/* Calories Section */}
-      <div className="nutrition-calories-box">
-        <div className="calories-text">
-          <span className="cal-label">🔥 Calories</span>
-          <span className="cal-value"><strong>1,450</strong> / 2,000 kcal</span>
-        </div>
-        <div className="progress-track">
-          <div className="progress-fill cal-bar"></div>
-        </div>
+
+      {isSample && (
+        <p className="dashboard-note">
+          Amounts and macro targets are demonstrative. Open your Weekly Planner to schedule meals and update active macros.
+        </p>
+      )}
+
+      <div className="nutrition-container">
+        {nutrients.map((nutrient) => {
+          const percentage = Math.round(
+            (nutrient.value / Math.max(nutrient.goal, 1)) * 100
+          );
+
+          return (
+            <div className="nutrition-item" key={nutrient.name}>
+              <div className="nutrition-icon" aria-hidden="true">
+                {nutrient.icon}
+              </div>
+
+              <div className="nutrition-details">
+                <h3>{nutrient.name}</h3>
+
+                <p>
+                  <strong>{nutrient.value}g</strong> / {nutrient.goal}g
+                </p>
+
+                <progress
+                  className="dashboard-macro-progress"
+                  value={Math.min(percentage, 100)}
+                  max="100"
+                  style={{ accentColor: nutrient.color }}
+                  aria-label={`${nutrient.name} goal progress`}
+                />
+
+                <span className="nutrition-percent">
+                  {percentage}%
+                </span>
+              </div>
+            </div>
+          );
+        })}
       </div>
-      {/* Macro Nutrients Breakdown */}
-      <div className="macro-list">
-        {/* Protein */}
-        <div className="macro-item">
-          <div className="macro-info">
-            <span>🍗 Protein</span>
-            <span><strong>85g</strong> / 120g</span>
-          </div>
-          <div className="progress-track">
-            <div className="progress-fill protein-bar"></div>
-          </div>
-        </div>
-        {/* Carbs */}
-        <div className="macro-item">
-          <div className="macro-info">
-            <span>🍞 Carbs</span>
-            <span><strong>180g</strong> / 250g</span>
-          </div>
-          <div className="progress-track">
-            <div className="progress-fill carbs-bar"></div>
-          </div>
-        </div>
-        {/* Fat */}
-        <div className="macro-item">
-          <div className="macro-info">
-            <span>🥑 Fat</span>
-            <span><strong>45g</strong> / 65g</span>
-          </div>
-          <div className="progress-track">
-            <div className="progress-fill fat-bar"></div>
-          </div>
-        </div>
-      </div>
-    </div>
+    </section>
   );
 }
 
