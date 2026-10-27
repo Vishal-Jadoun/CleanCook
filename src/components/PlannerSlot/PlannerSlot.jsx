@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { usePlanner } from '../../context/PlannerContext';
+import { usePlanner } from '../../hooks/usePlanner';
 import MealCard from '../MealCard/MealCard';
 import './PlannerSlot.css';
 
@@ -14,7 +14,6 @@ const SLOTS = [
 const PlannerSlot = ({
   dayName,
   dayData,
-  onClose,
   onOpenPicker,
   onOpenAddModal,
   onOpenMealCard,

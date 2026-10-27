@@ -1,9 +1,5 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { getDailyNutrition } from '../utils/groceryAggregator';
-
-export { getDailyNutrition };
-
-const PlannerContext = createContext(null);
+import React, { useState, useEffect } from 'react';
+import { PlannerContext } from './plannerContextInstance';
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
@@ -243,12 +239,4 @@ export const PlannerProvider = ({ children }) => {
       {children}
     </PlannerContext.Provider>
   );
-};
-
-export const usePlanner = () => {
-  const context = useContext(PlannerContext);
-  if (!context) {
-    throw new Error('usePlanner must be used within a PlannerProvider');
-  }
-  return context;
 };

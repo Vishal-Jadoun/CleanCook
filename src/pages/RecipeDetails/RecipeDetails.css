@@ -1,6 +1,46 @@
 .recipeDetailsPage {
     max-width: 1200px;
     margin: 40px auto;
+    padding: 0 20px;
+}
+
+.detailsNavBack {
+    margin-bottom: 24px;
+}
+
+.backLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    transition: transform 0.2s;
+}
+
+.backLink:hover {
+    transform: translateX(-4px);
+    text-decoration: underline;
+}
+
+.addPlannerBtn {
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 999px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 14px rgba(46, 125, 50, 0.25);
+}
+
+.addPlannerBtn:hover {
+    background-color: #256628;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(46, 125, 50, 0.35);
 }
 
 /* --- Header Section --- */
@@ -118,4 +158,52 @@
     color: #2b2b2b;
     display: block;
     margin-bottom: 5px;
+}
+
+@media (max-width: 768px) {
+    .recipeDetailsPage {
+        margin: 20px auto;
+        padding: 0 16px;
+    }
+
+    .detailsHeader {
+        flex-direction: column;
+        text-align: center;
+        gap: 24px;
+        padding: 24px 16px;
+        margin-bottom: 30px;
+    }
+
+    .detailsTitleBox {
+        align-items: center;
+    }
+
+    .detailsTitleBox h1 {
+        font-size: 30px;
+    }
+
+    .detailsTitleBox p {
+        font-size: 16px;
+    }
+
+    .recipeStats {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+        font-size: 15px;
+    }
+
+    .detailsContent {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .ingredientsSection,
+    .instructionsSection {
+        padding: 24px 18px;
+    }
+
+    .detailsImage img {
+        max-width: 240px;
+    }
 }

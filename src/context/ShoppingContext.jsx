@@ -1,8 +1,7 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import dummyShoppingList from '../data/shoppingList';
 import { aggregateWeeklyIngredients } from '../utils/groceryAggregator';
-
-const ShoppingContext = createContext(null);
+import { ShoppingContext } from './shoppingContextInstance';
 
 // Transform initial dummy list into a flat list of interactive items
 const buildInitialItems = () => {
@@ -192,14 +191,6 @@ export const ShoppingProvider = ({ children }) => {
       {children}
     </ShoppingContext.Provider>
   );
-};
-
-export const useShopping = () => {
-  const context = useContext(ShoppingContext);
-  if (!context) {
-    throw new Error('useShopping must be used within a ShoppingProvider');
-  }
-  return context;
 };
 
 function getCategoryEmoji(cat) {

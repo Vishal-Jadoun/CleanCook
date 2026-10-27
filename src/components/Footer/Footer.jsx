@@ -16,9 +16,9 @@ function Footer() {
 
             <p>CleanCook brings you the finest cook recipes, health tracking and delicious meals made with love and the finest ingredients</p>
             <div className='socialLinks'>
-              <a href="#">Facebook</a>
-              <a href="#">Instagram</a>
-              <a href="#">YouTube</a>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="CleanCook on Facebook">Facebook</a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="CleanCook on Instagram">Instagram</a>
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="CleanCook on YouTube">YouTube</a>
             </div>
           </div>
 
@@ -32,9 +32,9 @@ function Footer() {
 
           <div className='footerSupportCol'>
             <h4>Support</h4>
-            <Link to="#">Help Center</Link>
-            <Link to="#">FAQs</Link>
-            <Link to="#">Privacy Policy</Link>
+            <span className="footerDisabledLink">Help Center (24/7)</span>
+            <span className="footerDisabledLink">FAQs & Guides</span>
+            <span className="footerDisabledLink">Privacy & Terms</span>
           </div>
 
           <div className='footerContactCol'>
@@ -48,9 +48,9 @@ function Footer() {
         <div className='footerBottom'>
           <p>© 2026 CleanCook. All rights reserved.</p>
           <div className='footerContributorNames'>
-            <a href="#team">Vishal Jadoun</a>
-            <a href="#team">Aditya</a>
-            <a href="#team">Harnoor Kaur</a>
+            <span>Vishal Jadoun</span>
+            <span>Aditya Bansal</span>
+            <span>Harnoor Kaur</span>
           </div>
 
           <div>

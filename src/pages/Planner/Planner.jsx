@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { usePlanner } from '../../context/PlannerContext';
-import { useShopping } from '../../context/ShoppingContext';
+import { usePlanner } from '../../hooks/usePlanner';
+import { useShopping } from '../../hooks/useShopping';
 import { useDebounce } from '../../hooks/useDebounce';
 import DayColumn from '../../components/DayColumn/DayColumn';
 import PlannerSlot from '../../components/PlannerSlot/PlannerSlot';
