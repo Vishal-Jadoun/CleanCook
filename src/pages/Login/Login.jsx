@@ -1,61 +1,98 @@
-import "./Login.css";
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import potLogo from '../../assets/pot.svg';
+import './Login.css';
+
 function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const [statusType, setStatusType] = useState('info');
 
+  function handleSubmit(event) {
+    event.preventDefault();
 
-//js
+    if (!email.trim() || !password) {
+      setStatusType('error');
+      setMessage('Please enter both email and password.');
+      return;
+    }
 
+    if (password.length < 6) {
+      setStatusType('error');
+      setMessage('Password must be at least 6 characters.');
+      return;
+    }
 
-
+    setStatusType('success');
+    setMessage('Sign in validated! (Front-end demo mode: no backend session is active).');
+  }
 
   return (
-
-
-
-    //html
-
-
-
     <section id="login-page">
-      
-    <div className="login-box">
+      <div className="login-box">
+        <div className="logo">
+          <img src={potLogo} alt="CleanCook Logo" />
+        </div>
+        <h1>Clean Cook</h1>
+        <p className="auth-subtitle">Welcome back! Sign in to continue.</p>
 
-      <div className="logo">
-        <img src="#" alt="" /> {/*logo*/}
-      </div>
-      <h1>Clean Cook</h1>
+        <form onSubmit={handleSubmit} noValidate>
+          <div className="input-box">
+            <input
+              id="login-email"
+              type="email"
+              placeholder="Email Address"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setMessage('');
+              }}
+              autoComplete="email"
+              aria-label="Email Address"
+              required
+            />
+          </div>
 
-      <form>
+          <div className="input-box">
+            <input
+              id="login-password"
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setMessage('');
+              }}
+              autoComplete="current-password"
+              aria-label="Password"
+              required
+            />
+          </div>
 
-            <div class="input-box">
-              
-                <input
-                    type="email"
-                    placeholder="Email"
-                    required
-                />
-            </div>
-
-            <div class="input-box">
-                <input
-                    type="password"
-                    placeholder="Password"
-                    required
-                />
-            </div>
-
-            <button class="login-btn" type="submit">
-                Sign In
-            </button>
-
+          <button className="login-btn" type="submit">
+            Sign In
+          </button>
         </form>
 
-        <div class="signup">
-            Don't have an account?
-            <a href="#">Sign up, it's free!</a>
+        {message && (
+          <p
+            className={`auth-message ${statusType}`}
+            role={statusType === 'error' ? 'alert' : 'status'}
+          >
+            {message}
+          </p>
+        )}
+
+        <div className="auth-demo-badge">
+          <small>ℹ️ Front-end demonstration — authentication is simulated.</small>
         </div>
 
-    </div>
-
+        <div className="signup">
+          Don't have an account?{' '}
+          <Link to="/signup">Sign up, it's free!</Link>
+        </div>
+      </div>
     </section>
   );
 }
