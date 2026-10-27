@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
-import { useShopping } from '../../context/ShoppingContext';
-import { usePlanner } from '../../context/PlannerContext';
+import { useShopping } from '../../hooks/useShopping';
+import { usePlanner } from '../../hooks/usePlanner';
 import { useDebounce } from '../../hooks/useDebounce';
 import ShoppingList from '../../components/ShoppingList/ShoppingList';
 import AddItemModal from '../../components/AddItemModal/AddItemModal';
