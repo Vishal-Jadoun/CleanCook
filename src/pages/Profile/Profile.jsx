@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Profile.css";
 
 const STORAGE_KEY = "cleancook-profile";
@@ -26,12 +26,16 @@ function loadProfile() {
     }
 
     const data = JSON.parse(saved);
+    if (!data || typeof data !== "object") {
+      return { ...defaultProfile };
+    }
+
     const profile = { ...defaultProfile };
 
-    // Only load recognised fields containing text.
+    // Support both string and number properties safely.
     for (const key of Object.keys(defaultProfile)) {
-      if (data !== null && typeof data[key] === "string") {
-        profile[key] = data[key];
+      if (data[key] !== undefined && data[key] !== null) {
+        profile[key] = String(data[key]);
       }
     }
 
@@ -77,6 +81,21 @@ function Profile() {
   const [formData, setFormData] = useState({ ...profileData });
   const [message, setMessage] = useState("");
 
+  useEffect(() => {
+    function handleStorageChange(event) {
+      if (event.key === STORAGE_KEY) {
+        const refreshed = loadProfile();
+        setProfileData(refreshed);
+        if (!isEditing) {
+          setFormData({ ...refreshed });
+        }
+      }
+    }
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, [isEditing]);
+
   function handleEdit() {
     setFormData({ ...profileData });
     setMessage("");
@@ -101,6 +120,37 @@ function Profile() {
 
     if (formData.name.trim() === "") {
       setMessage("Please enter your name.");
+      return;
+    }
+
+    const ageNum = Number(formData.age);
+    const heightNum = Number(formData.height);
+    const weightNum = Number(formData.weight);
+    const calNum = Number(formData.dailyCalories);
+    const waterNum = Number(formData.waterGoal);
+
+    if (formData.age && (!Number.isFinite(ageNum) || ageNum <= 0)) {
+      setMessage("Please enter an age greater than zero.");
+      return;
+    }
+
+    if (formData.height && (!Number.isFinite(heightNum) || heightNum <= 0)) {
+      setMessage("Please enter a height in cm greater than zero.");
+      return;
+    }
+
+    if (formData.weight && (!Number.isFinite(weightNum) || weightNum <= 0)) {
+      setMessage("Please enter a weight in kg greater than zero.");
+      return;
+    }
+
+    if (formData.dailyCalories && (!Number.isFinite(calNum) || calNum <= 0)) {
+      setMessage("Please enter a daily calorie target greater than zero.");
+      return;
+    }
+
+    if (formData.waterGoal && (!Number.isFinite(waterNum) || waterNum <= 0)) {
+      setMessage("Please enter a water goal in glasses greater than zero.");
       return;
     }
 
