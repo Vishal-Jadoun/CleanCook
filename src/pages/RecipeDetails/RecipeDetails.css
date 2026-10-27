@@ -159,3 +159,51 @@
     display: block;
     margin-bottom: 5px;
 }
+
+@media (max-width: 768px) {
+    .recipeDetailsPage {
+        margin: 20px auto;
+        padding: 0 16px;
+    }
+
+    .detailsHeader {
+        flex-direction: column;
+        text-align: center;
+        gap: 24px;
+        padding: 24px 16px;
+        margin-bottom: 30px;
+    }
+
+    .detailsTitleBox {
+        align-items: center;
+    }
+
+    .detailsTitleBox h1 {
+        font-size: 30px;
+    }
+
+    .detailsTitleBox p {
+        font-size: 16px;
+    }
+
+    .recipeStats {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+        font-size: 15px;
+    }
+
+    .detailsContent {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .ingredientsSection,
+    .instructionsSection {
+        padding: 24px 18px;
+    }
+
+    .detailsImage img {
+        max-width: 240px;
+    }
+}
