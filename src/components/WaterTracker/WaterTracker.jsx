@@ -8,13 +8,11 @@ function getToday() {
 function loadWaterCount() {
   try {
     const saved = localStorage.getItem("cleancook-water");
-
     if (saved === null) {
       return 0;
     }
 
     const data = JSON.parse(saved);
-
     if (
       data !== null &&
       data.date === getToday() &&
@@ -30,9 +28,42 @@ function loadWaterCount() {
   }
 }
 
-function WaterTracker() {
+function loadSavedWaterGoal() {
+  try {
+    const saved = localStorage.getItem("cleancook-profile");
+    if (!saved) return 8;
+
+    const profile = JSON.parse(saved);
+    const savedGoal = Number(profile?.waterGoal);
+
+    if (Number.isFinite(savedGoal) && savedGoal > 0) {
+      return Math.round(savedGoal);
+    }
+    return 8;
+  } catch {
+    return 8;
+  }
+}
+
+function WaterTracker({ goal: goalProp }) {
   const [glasses, setGlasses] = useState(loadWaterCount);
+  const [savedGoal, setSavedGoal] = useState(loadSavedWaterGoal);
   const [storageError, setStorageError] = useState("");
+
+  const goal =
+    Number.isFinite(Number(goalProp)) && Number(goalProp) > 0
+      ? Math.round(Number(goalProp))
+      : savedGoal;
+
+  useEffect(() => {
+    function handleStorage(e) {
+      if (e.key === "cleancook-profile") {
+        setSavedGoal(loadSavedWaterGoal());
+      }
+    }
+    window.addEventListener("storage", handleStorage);
+    return () => window.removeEventListener("storage", handleStorage);
+  }, []);
 
   useEffect(() => {
     try {
@@ -48,8 +79,6 @@ function WaterTracker() {
     }
   }, [glasses]);
 
-  // Example goal for the project demo.
-  const goal = 8;
   const progress = Math.min((glasses / goal) * 100, 100);
 
   function addGlass() {
@@ -84,8 +113,29 @@ function WaterTracker() {
           aria-label="Progress towards water goal"
         />
 
+        <div className="water-drops-row" aria-label="Visual water intake indicator">
+          {Array.from({ length: Math.min(goal, 16) }, (_, i) => (
+            <span
+              key={i}
+              className={`water-drop-icon ${i < glasses ? "drop-filled" : "drop-empty"}`}
+              onClick={() => setGlasses(i + 1)}
+              title={`Set to ${i + 1} glasses`}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  setGlasses(i + 1);
+                }
+              }}
+              aria-label={`Glass ${i + 1} of ${goal}`}
+            >
+              💧
+            </span>
+          ))}
+        </div>
+
         <div className="water-actions">
-          <button type="button" onClick={addGlass}>
+          <button type="button" onClick={addGlass} aria-label="Add one glass">
             + Add glass
           </button>
 
@@ -93,6 +143,7 @@ function WaterTracker() {
             type="button"
             onClick={removeGlass}
             disabled={glasses === 0}
+            aria-label="Remove one glass"
           >
             − Remove
           </button>
@@ -101,20 +152,20 @@ function WaterTracker() {
             type="button"
             onClick={resetWater}
             disabled={glasses === 0}
+            aria-label="Reset water count"
           >
             Reset
           </button>
         </div>
 
         {glasses >= goal && (
-          <p className="water-goal-message">
-            You reached your demo goal!
+          <p className="water-goal-message" role="status">
+            🎉 You reached your daily hydration goal!
           </p>
         )}
 
         <small className="water-note">
-          Demo goal: 8 glasses. Your count is saved in this browser and
-          resets when you reopen or refresh the tracker on a new day.
+          Goal is {goal} glasses (from saved Profile). Daily intake persists for today and resets on new dates.
         </small>
 
         {storageError && <p role="status">{storageError}</p>}
