@@ -4,18 +4,28 @@
   padding: 0 20px;
 }
 
-.details-breadcrumb {
-  display: inline-block;
-  color: var(--color-primary, #9c27b0);
-  font-size: 14px;
-  font-weight: 600;
-  text-decoration: none;
+.detailsNavBack,
+.details-breadcrumb-wrap {
   margin-bottom: 24px;
-  transition: opacity 0.2s ease;
 }
 
+.backLink,
+.details-breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-primary, #9c27b0);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.backLink:hover,
 .details-breadcrumb:hover {
-  opacity: 0.7;
+  transform: translateX(-4px);
+  text-decoration: underline;
+  opacity: 0.85;
 }
 
 .detailsHeader {
@@ -113,11 +123,12 @@
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .addPlannerBtn:hover {
   background-color: var(--color-primary-dark, #7b1fa2);
+  transform: translateY(-2px);
 }
 
 .detailsContent {
@@ -273,18 +284,36 @@
 }
 
 @media (max-width: 768px) {
-  .detailsHeader {
-    flex-direction: column;
-    gap: 24px;
-    padding: 24px;
+  .recipeDetailsPage {
+    margin: 20px auto;
+    padding: 0 16px;
   }
 
-  .detailsImage img {
-    max-width: 260px;
+  .detailsHeader {
+    flex-direction: column;
+    text-align: center;
+    gap: 24px;
+    padding: 24px 16px;
+    margin-bottom: 30px;
+  }
+
+  .detailsTitleBox {
+    align-items: center;
   }
 
   .detailsTitleBox h1 {
     font-size: 28px;
+  }
+
+  .detailsImage img {
+    max-width: 240px;
+  }
+
+  .recipeStats {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    font-size: 14px;
   }
 
   .detailsContent {
