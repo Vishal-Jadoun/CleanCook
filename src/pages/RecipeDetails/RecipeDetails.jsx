@@ -1,152 +1,207 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { getMealById, extractIngredients } from '../../services/mealDbService';
 import { usePlanner } from '../../hooks/usePlanner';
-import dummyRecipes from '../../data/recipes';
-import abgcbowl from '../../assets/abgcbowl.png';
-import bbgcbowl from '../../assets/bbgcbowl.png';
-import cbgcbowl from '../../assets/cbgcbowl.png';
+import { SIGNATURE_BOWLS } from '../../data/signatureBowls';
+import localRecipes from '../../data/recipes';
 import './RecipeDetails.css';
 
-const BOWL_DETAILS = {
-  'bowl-1': {
-    id: 'bowl-1',
-    name: 'Rainbow Buddha Bowl',
-    description: 'A colorful mix of avocado, quinoa, chickpeas, fresh greens, purple cabbage, cherry tomatoes, and roasted sweet potatoes.',
-    image: abgcbowl,
-    prepTime: '15 Mins',
-    servings: '2',
-    calories: 450,
-    ingredients: [
-      { measure: '1 cup', name: 'Quinoa' },
-      { measure: '1/2 cup', name: 'Chickpeas' },
-      { measure: '1', name: 'Fresh Avocado' },
-      { measure: '1 cup', name: 'Purple Cabbage' },
-      { measure: '1/2 cup', name: 'Cherry Tomatoes' },
-      { measure: '1 cup', name: 'Roasted Sweet Potatoes' },
-      { measure: '3 tbsp', name: 'Lemon Tahini Dressing' }
-    ],
-    instructions: [
-      { step: 'Cook the Quinoa', detail: 'Rinse quinoa and boil in 2 cups of water for 15 minutes until fluffy.' },
-      { step: 'Prepare the Veggies', detail: 'Chop the avocado, cabbage, and tomatoes. Roast the sweet potatoes until soft.' },
-      { step: 'Assemble the Bowl', detail: 'Place the cooked quinoa at the bottom. Arrange all the veggies and chickpeas neatly on top.' },
-      { step: 'Dressing', detail: 'Drizzle heavily with lemon tahini dressing and serve immediately.' }
-    ]
-  },
-  'bowl-2': {
-    id: 'bowl-2',
-    name: 'Hearty Lentil & Sweet Potato Bowl',
-    description: 'A warm and comforting bowl of protein-rich lentils, roasted sweet potatoes, spinach, and fresh herbs.',
-    image: bbgcbowl,
-    prepTime: '25 Mins',
-    servings: '2',
-    calories: 520,
-    ingredients: [
-      { measure: '1.5 cups', name: 'Brown Lentils' },
-      { measure: '2 medium', name: 'Roasted Sweet Potatoes' },
-      { measure: '2 cups', name: 'Baby Spinach' },
-      { measure: '2 tbsp', name: 'Olive Oil' },
-      { measure: '1 tsp', name: 'Cumin & Paprika' },
-      { measure: '2 tbsp', name: 'Lemon Juice' }
-    ],
-    instructions: [
-      { step: 'Cook the Lentils', detail: 'Simmer lentils in vegetable broth for 20 minutes until tender.' },
-      { step: 'Roast Potatoes', detail: 'Cube sweet potatoes, toss with olive oil and spices, bake at 200°C for 25 minutes.' },
-      { step: 'Wilt the Greens', detail: 'Lightly warm the spinach with a splash of lemon juice.' },
-      { step: 'Combine & Serve', detail: 'Layer lentils, sweet potatoes, and spinach in a bowl; garnish with fresh herbs.' }
-    ]
-  },
-  'bowl-3': {
-    id: 'bowl-3',
-    name: 'Mediterranean Kale Chickpea Bowl',
-    description: 'Fresh kale and chickpeas tossed with cucumber, cherry tomatoes, red onion, creamy feta, and herbs.',
-    image: cbgcbowl,
-    prepTime: '20 Mins',
-    servings: '2',
-    calories: 480,
-    ingredients: [
-      { measure: '2 cups', name: 'Chopped Kale' },
-      { measure: '1 can', name: 'Chickpeas (rinsed)' },
-      { measure: '1 cup', name: 'Diced Cucumber' },
-      { measure: '1/2 cup', name: 'Cherry Tomatoes' },
-      { measure: '1/4 cup', name: 'Crumbled Feta' },
-      { measure: '2 tbsp', name: 'Greek Vinaigrette' }
-    ],
-    instructions: [
-      { step: 'Massage the Kale', detail: 'Toss kale leaves with a pinch of salt and olive oil to soften the texture.' },
-      { step: 'Prep Toppings', detail: 'Dice cucumber, halve tomatoes, and drain chickpeas.' },
-      { step: 'Assemble', detail: 'Toss kale, chickpeas, cucumbers, and tomatoes with Greek vinaigrette.' },
-      { step: 'Garnish', detail: 'Sprinkle creamy crumbled feta on top and serve chilled.' }
-    ]
-  }
-};
-
-function parseInstructions(text) {
-  if (!text) return [];
-  return text
-    .split(/\r?\n/)
-    .map((line) => line.trim())
-    .filter(Boolean)
-    .map((line, index) => {
-      const match = line.match(/^(\d+\.?\s*)(.*?)$/);
-      return {
-        step: `Step ${index + 1}`,
-        detail: match ? match[2] : line
-      };
-    });
-}
+const DUMMYJSON_URL = 'https://dummyjson.com/recipes';
 
 function RecipeDetails() {
   const { id } = useParams();
-  const { setMeal } = usePlanner();
-  const [added, setAdded] = useState(false);
+  const { setMeal, days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] } = usePlanner();
 
-  // 1. Check custom featured bowls
-  let recipe = BOWL_DETAILS[id];
+  const [recipe, setRecipe] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [addedToPlanner, setAddedToPlanner] = useState(false);
+  const [selectedDay, setSelectedDay] = useState('Monday');
+  const [selectedSlot, setSelectedSlot] = useState('lunch');
 
-  // 2. Check dummyRecipes dataset
-  if (!recipe) {
-    const found = dummyRecipes.find((r) => String(r.id) === String(id));
-    if (found) {
-      recipe = {
-        id: found.id,
-        name: found.name,
-        description: `${found.category || 'Healthy'} • ${found.area || 'Classic'} dish prepared with fresh natural ingredients.`,
-        image: found.image,
-        prepTime: '25 Mins',
-        servings: '2-4 Servings',
-        calories: 480,
-        ingredients: (found.ingredients || []).map((ing) => ({
-          measure: ing.measure || 'To taste',
-          name: ing.name
-        })),
-        instructions: parseInstructions(found.instructions)
-      };
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadRecipe() {
+      setLoading(true);
+      setError(null);
+
+      // 1. Check signature bowls FIRST (Rainbow Buddha Bowl, etc.)
+      const signatureMatch = SIGNATURE_BOWLS.find(
+        (b) => b.id === id || b.aliasIds?.includes(String(id))
+      );
+      if (signatureMatch) {
+        if (!cancelled) {
+          setRecipe({
+            source: 'signature',
+            name: signatureMatch.name,
+            description: signatureMatch.description,
+            image: signatureMatch.image,
+            area: signatureMatch.area || 'Healthy Bowl',
+            category: signatureMatch.category || 'Signature Bowl',
+            calories: signatureMatch.calories || '450 cal',
+            prepTime: signatureMatch.prepTime || '15 min',
+            servings: signatureMatch.servings || '2 Servings',
+            tags: signatureMatch.tags || [],
+            ingredients: signatureMatch.ingredients || [],
+            instructions: signatureMatch.instructions || '',
+          });
+          setLoading(false);
+        }
+        return;
+      }
+
+      // 2. Check local dummy recipes
+      const localMatch = localRecipes.find((r) => String(r.id) === String(id));
+      if (localMatch) {
+        if (!cancelled) {
+          setRecipe({
+            source: 'local',
+            name: localMatch.name,
+            description: `${localMatch.category || 'Healthy'} • ${localMatch.area || 'Classic'} dish prepared with fresh natural ingredients.`,
+            image: localMatch.image,
+            area: localMatch.area || '',
+            category: localMatch.category || '',
+            calories: '480 cal',
+            prepTime: '25 min',
+            servings: '2 Servings',
+            tags: localMatch.tags || [],
+            ingredients: localMatch.ingredients || [],
+            instructions: localMatch.instructions || '',
+          });
+          setLoading(false);
+        }
+        return;
+      }
+
+      // 3. Fetch from TheMealDB API
+      try {
+        const meal = await getMealById(id);
+        if (meal) {
+          if (!cancelled) {
+            setRecipe({
+              source: 'api',
+              name: meal.strMeal,
+              description: meal.strInstructions ? meal.strInstructions.slice(0, 140) + '...' : '',
+              image: meal.strMealThumb,
+              area: meal.strArea || '',
+              category: meal.strCategory || '',
+              calories: '450 cal',
+              prepTime: '30 min',
+              servings: '2-4 Servings',
+              tags: meal.strTags ? meal.strTags.split(',').map((t) => t.trim()) : [],
+              ingredients: extractIngredients(meal),
+              instructions: meal.strInstructions || '',
+              youtube: meal.strYoutube || '',
+            });
+            setLoading(false);
+          }
+          return;
+        }
+
+        // 4. Fetch from DummyJSON if numeric ID
+        const numericId = Number(id);
+        if (numericId > 0 && numericId < 1000) {
+          const res = await fetch(`${DUMMYJSON_URL}/${id}`);
+          if (res.ok) {
+            const dj = await res.json();
+            if (!cancelled) {
+              setRecipe({
+                source: 'dummyjson',
+                name: dj.name,
+                description: `${dj.cuisine || ''} ${dj.difficulty || ''} recipe.`,
+                image: dj.image,
+                area: dj.cuisine || '',
+                category: dj.difficulty || '',
+                calories: `${dj.caloriesPerServing || 400} cal`,
+                prepTime: `${dj.prepTimeMinutes || 20} min`,
+                servings: `${dj.servings || 2} Servings`,
+                tags: dj.tags || [],
+                ingredients: (dj.ingredients || []).map((ing) => ({ name: ing, measure: '' })),
+                instructions: (dj.instructions || []).join('\n'),
+              });
+              setLoading(false);
+            }
+            return;
+          }
+        }
+
+        if (cancelled) return;
+        setError('Recipe not found');
+        setLoading(false);
+      } catch (err) {
+        if (!cancelled) {
+          setError(err.message || 'Failed to load recipe');
+          setLoading(false);
+        }
+      }
     }
-  }
 
-  // 3. Fallback to bowl-1
-  if (!recipe) {
-    recipe = BOWL_DETAILS['bowl-1'];
-  }
+    loadRecipe();
+    return () => {
+      cancelled = true;
+    };
+  }, [id]);
 
-  const handleAddToPlanner = () => {
-    setMeal('Monday', 'lunch', {
+  function handleAddToPlanner() {
+    if (!recipe) return;
+
+    const plannerMeal = {
       name: recipe.name,
       image: recipe.image,
-      calories: recipe.calories || 450,
-      protein: 20,
-      fat: 14,
-      carbs: 45,
-      prepTime: recipe.prepTime,
-      tags: ['Fresh', 'Wholesome'],
+      calories: Math.floor(Math.random() * 300) + 350,
+      protein: Math.floor(Math.random() * 20) + 20,
+      carbs: Math.floor(Math.random() * 30) + 30,
+      fat: Math.floor(Math.random() * 15) + 10,
+      prepTime: recipe.prepTime || '30 mins',
+      tags: recipe.tags || [],
       ingredients: recipe.ingredients.map((ing) => ({
         item: ing.name,
-        amount: ing.measure
-      }))
-    });
-    setAdded(true);
-    setTimeout(() => setAdded(false), 3000);
-  };
+        amount: ing.measure || '1 portion',
+      })),
+    };
+
+    setMeal(selectedDay, selectedSlot, plannerMeal);
+    setAddedToPlanner(true);
+    setTimeout(() => setAddedToPlanner(false), 3000);
+  }
+
+  function formatInstructions(text) {
+    if (!text) return [];
+    return text
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter((line) => line.length > 0);
+  }
+
+  if (loading) {
+    return (
+      <section className="recipeDetailsPage">
+        <div className="details-state-wrap">
+          <div className="details-loader">
+            <div className="details-spinner" />
+            <p>Loading recipe...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error || !recipe) {
+    return (
+      <section className="recipeDetailsPage">
+        <div className="details-state-wrap">
+          <div className="details-error">
+            <span className="details-error-icon">⚠️</span>
+            <p>{error || 'Recipe not found'}</p>
+            <Link to="/recipes" className="details-back-btn">Browse Recipes</Link>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  const steps = formatInstructions(recipe.instructions);
 
   return (
     <section className="recipeDetailsPage">
@@ -160,21 +215,53 @@ function RecipeDetails() {
         </div>
         <div className="detailsTitleBox">
           <h1>{recipe.name}</h1>
-          <p>{recipe.description}</p>
+          {recipe.description && <p>{recipe.description}</p>}
 
           <div className="recipeStats">
-            <span>🕒 {recipe.prepTime}</span>
-            <span>👥 {recipe.servings}</span>
-            <span>🔥 {recipe.calories} Calories</span>
+            {recipe.prepTime && <span>⏱️ {recipe.prepTime}</span>}
+            {recipe.servings && <span>👥 {recipe.servings}</span>}
+            {recipe.calories && <span>🔥 {recipe.calories}</span>}
+            {recipe.area && <span>🌍 {recipe.area}</span>}
+            {recipe.category && <span>📂 {recipe.category}</span>}
+            {recipe.ingredients.length > 0 && (
+              <span>🥘 {recipe.ingredients.length} Ingredients</span>
+            )}
           </div>
 
-          <div className="actionRow">
+          {recipe.tags.length > 0 && (
+            <div className="details-tags">
+              {recipe.tags.map((tag) => (
+                <span key={tag} className="details-tag">#{tag}</span>
+              ))}
+            </div>
+          )}
+
+          <div className="details-planner-controls">
+            <select
+              value={selectedDay}
+              onChange={(e) => setSelectedDay(e.target.value)}
+              className="details-select"
+            >
+              {days.map((day) => (
+                <option key={day} value={day}>{day}</option>
+              ))}
+            </select>
+            <select
+              value={selectedSlot}
+              onChange={(e) => setSelectedSlot(e.target.value)}
+              className="details-select"
+            >
+              <option value="breakfast">Breakfast</option>
+              <option value="lunch">Lunch</option>
+              <option value="dinner">Dinner</option>
+              <option value="snack">Snack</option>
+            </select>
             <button
               type="button"
               className="addPlannerBtn"
               onClick={handleAddToPlanner}
             >
-              {added ? '✓ Added to Monday Lunch!' : '+ Add to Planner'}
+              {addedToPlanner ? '✓ Added!' : '+ Add to Planner'}
             </button>
           </div>
         </div>
@@ -184,9 +271,10 @@ function RecipeDetails() {
         <div className="ingredientsSection">
           <h2>Ingredients</h2>
           <ul>
-            {recipe.ingredients.map((ing, idx) => (
-              <li key={idx}>
-                ✓ {ing.measure} {ing.name}
+            {recipe.ingredients.map((ing, index) => (
+              <li key={index}>
+                <span className="ingredient-name">✓ {ing.name}</span>
+                {ing.measure && <span className="ingredient-measure">{ing.measure}</span>}
               </li>
             ))}
           </ul>
@@ -195,12 +283,21 @@ function RecipeDetails() {
         <div className="instructionsSection">
           <h2>Instructions</h2>
           <ol>
-            {recipe.instructions.map((inst, idx) => (
-              <li key={idx}>
-                <strong>{inst.step}:</strong> {inst.detail}
-              </li>
+            {steps.map((step, index) => (
+              <li key={index}>{step}</li>
             ))}
           </ol>
+
+          {recipe.youtube && (
+            <a
+              href={recipe.youtube}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="details-youtube-link"
+            >
+              ▶ Watch Video Tutorial
+            </a>
+          )}
         </div>
       </div>
     </section>
